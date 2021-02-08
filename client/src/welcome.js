@@ -5,7 +5,7 @@ import Registration from "./registration";
 export default function Welcome() {
     return (
         <div>
-            <h1>Welcome</h1>
+            <h1>Welcome to your new favorite community</h1>
             <Registration />
         </div>
     );

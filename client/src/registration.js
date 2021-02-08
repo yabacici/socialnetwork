@@ -21,14 +21,16 @@ export default class Registration extends React.Component {
     // 1. we need to store the user's input in state
     // 2. when user clicks "submit," we need to take the input we got from the user
     // and send it off to the server in a `POST` request
-
+    // in .then read the response, and based on the response:
+    // a. render an error message for the user
+    // b. redirect to /
     handleClick() {
-        // remaining tasks: make the red underlines go away!
         axios
-            .post("/registration", dataToSendToServer)
+            .post("/registration", this.state) //dataToSendToServer
             .then((resp) => {
                 console.log("resp from server: ", resp);
-                if (error) {
+                if (this.state.error) {
+                    console.log("error");
                     this.setState({
                         error: true,
                     });
@@ -70,7 +72,7 @@ export default class Registration extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="form">
                 {this.state.error && <p>Something broke</p>}
                 <h1>Registration</h1>
                 {/* strategy #2 for binding: arrow functions! */}

@@ -26,14 +26,13 @@ app.use(compression());
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 app.use(express.json());
 
-app.get("/welcome", (req, res) => {
-    // we need cookie Session middleware to run this
-    if (req.session.userId) {
-        // if the user is logged in...redirect away from /welcome
+app.get("/welcome", function (req, res) {
+    // if u dont have the cookiesession middleware this code will not work
+    if (req.session.UserId) {
         res.redirect("/");
     } else {
-        // user is not logged in...don't redirect
-        // what happens after  sendFile, after we send our HTML back as a response,
+        // user is not logged in... don't redirect!
+        // what happens after send file, afetr we send out html back as a response,
         //is start.js
         res.sendFile(path.join(__dirname, "..", "client", "index.html"));
     }
@@ -41,7 +40,7 @@ app.get("/welcome", (req, res) => {
 
 app.get("*", function (req, res) {
     if (!req.session.userId) {
-        res.redirect("/");
+        res.redirect("/welcome");
     } else {
         res.sendFile(path.join(__dirname, "..", "client", "index.html"));
     }
@@ -51,15 +50,15 @@ app.post("/registration", (req, res) => {
     // console.log(req.body);
     // console.log(req.body.password);
 
-    const { firstname, lastname, email, password } = req.body;
+    const { first, last, email, password } = req.body;
 
     hash(password).then((hashedPw) => {
-        console.log("hashedPw in /registeration:", hashedPw);
-        db.addRegisteration(firstname, lastname, email, hashedPw)
+        console.log("hashedPw in /registration:", hashedPw);
+        db.insertRegister(first, last, email, hashedPw)
             .then((results) => {
                 console.log(results);
-                // console.log("Another user joined");
-                req.session.userId = results.rows[0];
+                console.log("added to db");
+                req.session.userId = results.rows[0].id;
                 return res.json(results.rows[0]);
             })
             .catch((err) => {
