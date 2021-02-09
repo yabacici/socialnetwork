@@ -2,7 +2,8 @@
 // class component have state!
 // (class components also have lifecycle methods (like componentDidMount))
 import React from "react";
-import axios from "axios";
+import axios from "./axios";
+// import {/login} from "react-router-dom";
 
 export default class Registration extends React.Component {
     constructor() {
@@ -29,7 +30,7 @@ export default class Registration extends React.Component {
             .post("/registration", this.state) //dataToSendToServer
             .then((resp) => {
                 console.log("resp from server: ", resp);
-                if (this.state.error) {
+                if (!this.state.success) {
                     console.log("error");
                     this.setState({
                         error: true,
