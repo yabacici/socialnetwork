@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "./axios";
+import { Link } from "react-router-dom";
 
 export default class Login extends React.Component {
     constructor() {
@@ -66,6 +67,7 @@ export default class Login extends React.Component {
                     placeholder="password"
                 />
                 <button onClick={() => this.handleClick()}>logIn</button>
+                <Link to="/register">Click here to register!</Link>
             </div>
         );
     }

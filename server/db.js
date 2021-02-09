@@ -10,8 +10,8 @@ module.exports.insertRegister = (first, last, email, hashedPw) => {
     return db.query(q, params);
 };
 
-module.exports.getLoginData = (email, hashedPw, usersId) => {
-    const q = `SELECT  users.email, users.password, users.id FROM users`;
-    const params = [email, hashedPw, usersId];
+module.exports.getLoginData = (email) => {
+    const q = `SELECT users.email, users.password, users.id FROM users WHERE email=$1`;
+    const params = [email];
     return db.query(q, params);
 };

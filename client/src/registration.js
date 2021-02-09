@@ -3,7 +3,7 @@
 // (class components also have lifecycle methods (like componentDidMount))
 import React from "react";
 import axios from "./axios";
-// import {/login} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default class Registration extends React.Component {
     constructor() {
@@ -73,36 +73,40 @@ export default class Registration extends React.Component {
 
     render() {
         return (
-            <div className="form">
-                {this.state.error && <p>Something broke</p>}
+            <>
                 <h1>Registration</h1>
-                {/* strategy #2 for binding: arrow functions! */}
-                <input
-                    onChange={(e) => this.handleChange(e)}
-                    name="first"
-                    type="text"
-                    placeholder="first"
-                />
-                <input
-                    onChange={(e) => this.handleChange(e)}
-                    name="last"
-                    type="text"
-                    placeholder="last"
-                />
-                <input
-                    onChange={(e) => this.handleChange(e)}
-                    name="email"
-                    type="text"
-                    placeholder="email"
-                />
-                <input
-                    onChange={(e) => this.handleChange(e)}
-                    name="password"
-                    type="password"
-                    placeholder="password"
-                />
-                <button onClick={() => this.handleClick()}>submit</button>
-            </div>
+                <div className="form">
+                    {this.state.error && <p>Something broke</p>}
+                    {/* strategy #2 for binding: arrow functions! */}
+                    <input
+                        className="registration-input"
+                        onChange={(e) => this.handleChange(e)}
+                        name="first"
+                        type="text"
+                        placeholder="first"
+                    />
+                    <input
+                        onChange={(e) => this.handleChange(e)}
+                        name="last"
+                        type="text"
+                        placeholder="last"
+                    />
+                    <input
+                        onChange={(e) => this.handleChange(e)}
+                        name="email"
+                        type="text"
+                        placeholder="email"
+                    />
+                    <input
+                        onChange={(e) => this.handleChange(e)}
+                        name="password"
+                        type="password"
+                        placeholder="password"
+                    />
+                    <button onClick={() => this.handleClick()}>submit</button>
+                    <Link to="/login">Click here to Log in!</Link>;
+                </div>
+            </>
         );
     }
 }
