@@ -57,7 +57,7 @@ app.use(express.static(path.join(__dirname, "..", "client", "public")));
 app.use(express.json());
 
 app.get("/welcome", function (req, res) {
-    if (req.session.UserId) {
+    if (req.session.userId) {
         res.redirect("/");
     } else {
         // user is not logged in... don't redirect!
@@ -67,27 +67,42 @@ app.get("/welcome", function (req, res) {
     }
 });
 
-app.get("*", function (req, res) {
-    if (!req.session.userId) {
-        res.redirect("/welcome");
-    } else {
-        res.sendFile(path.join(__dirname, "..", "client", "index.html"));
-    }
-});
-app.post("/registration", async (req, res) => {
+app.post("/registration", (req, res) => {
+    // console.log(req.body);
+    // console.log(req.body.password);
+
     const { first, last, email, password } = req.body;
-    try {
-        // hash is async and returns a promise : the hashpassword
-        // we store it i. a var bcuz we are excpecting sth out
-        const hashedPw = await hash(password);
-        const results = await db.addUser(first, last, email, hashedPw);
-        req.session.userId = results.rows[0].id;
-        return res.json({ user: results.rows[0], success: true });
-    } catch (err) {
-        console.log("err in POST/registration", err);
-        res.json({ success: false });
-    }
+
+    hash(password).then((hashedPw) => {
+        console.log("hashedPw in /registration:", hashedPw);
+        db.addUser(first, last, email, hashedPw)
+            .then((results) => {
+                console.log(results);
+                console.log("added to db");
+                req.session.userId = results.rows[0].id;
+                return res.json({ user: results.rows[0], success: true });
+            })
+            .catch((err) => {
+                console.log("errorMessage:Oops, something went wrong!!!", err);
+                res.json({ success: false });
+            });
+    });
 });
+
+// app.post("/registration", async (req, res) => {
+//     const { first, last, email, password } = req.body;
+//     try {
+//         // hash is async and returns a promise : the hashpassword
+//         // we store it i. a var bcuz we are excpecting sth out
+//         const hashedPw = await hash(password);
+//         const results = await db.addUser(first, last, email, hashedPw);
+//         req.session.userId = results.rows[0].id;
+//         return res.json({ user: results.rows[0], success: true });
+//     } catch (err) {
+//         console.log("err in POST/registration", err);
+//         res.json({ success: false });
+//     }
+// });
 
 app.get("/login", (req, res) => {
     if (req.session.userId) {
@@ -148,9 +163,9 @@ app.post("/password/reset/start", (req, res) => {
                         "Here is your code to reset your password"
                     )
                         // if email sent successful send resp json indicating success
-                        .then((results) => {
-                            console.log("results rows :", results.rows);
-                            console.log("yay, email sent!");
+                        .then(() => {
+                            // console.log("results rows :", results.rows);
+                            // console.log("yay, email sent!");
                             res.json({ success: true });
                         });
                 });
@@ -166,22 +181,26 @@ app.post("/password/reset/start", (req, res) => {
 });
 // user enters code and new password
 app.post("/password/reset/verify", async (req, res) => {
-    console.log("verify route");
-    console.log(req.body);
+    // console.log("verify route");
+    // console.log(req.body);
     const { code, password } = req.body;
     // find code in dt by email address
     db.verifyCode(code)
         .then((results) => {
+            const emailCode = results.rows[0].email;
+            let currentCode = results.rows.find((row) => {
+                return row.code === req.body.code;
+            });
             console.log(results.rows);
-            if (!results.rows === req.body) {
+            if (currentCode) {
                 // compare code you got from client (req.body) with code in db
-                console.log("error in verify code");
-                return res.json({ success: false });
-            } else {
+                //     console.log("error in verify code");
+                //     return res.json({ success: false });
+                // } else {
                 hash(password)
                     //when the 2 match then hash the password
                     .then((hashedPw) => {
-                        db.insertNewPassword(hashedPw)
+                        db.insertNewPassword(emailCode, hashedPw)
                             .then(() => {
                                 // send json indicating success
                                 res.json({ success: true });
@@ -193,10 +212,13 @@ app.post("/password/reset/verify", async (req, res) => {
                     })
                     .catch((err) => {
                         console.log("error in hashedpw: ", err);
-                        res.json({ success: false });
+                        // res.json({ success: false });
                     });
+            } else {
+                res.json({ success: false });
             }
         })
+
         .catch((err) => {
             console.log("Error verifying code: ", err);
         });
@@ -206,30 +228,17 @@ app.get("/logout", (req, res) => {
     req.session = null;
     res.redirect("/");
 });
+app.get("*", function (req, res) {
+    if (!req.session.userId) {
+        // if user not logged in redirect to welcome
+        res.redirect("/welcome");
+    } else {
+        res.sendFile(path.join(__dirname, "..", "client", "index.html"));
+    }
+});
 
 app.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening.");
 });
 
 //////////WITHOUT ASYNC AWAIT////
-// app.post("/registration", (req, res) => {
-//     // console.log(req.body);
-//     // console.log(req.body.password);
-
-//     const { first, last, email, password } = req.body;
-
-//     hash(password).then((hashedPw) => {
-//         console.log("hashedPw in /registration:", hashedPw);
-//         db.addUser(first, last, email, hashedPw)
-//             .then((results) => {
-//                 console.log(results);
-//                 console.log("added to db");
-//                 req.session.userId = results.rows[0].id;
-//                 return res.json({ user: results.rows[0], success: true });
-//             })
-//             .catch((err) => {
-//                 console.log("errorMessage:Oops, something went wrong!!!", err);
-//                 res.json({ success: false });
-//             });
-//     });
-// });

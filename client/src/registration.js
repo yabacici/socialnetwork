@@ -30,8 +30,8 @@ export default class Registration extends React.Component {
             .post("/registration", this.state) //dataToSendToServer
             .then((resp) => {
                 // console.log("resp from server: ", resp);
-                const user = resp.data.user;
-                const success = resp.data.success;
+                // const user = resp.data.user;
+                // const success = resp.data.success;
                 if (resp.data.success) {
                     location.replace("/");
                 } else {

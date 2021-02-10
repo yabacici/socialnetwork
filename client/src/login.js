@@ -8,8 +8,8 @@ export default class Login extends React.Component {
         super();
         this.state = {
             error: false,
-            email: "",
-            password: "",
+            // email: "",
+            // password: "",
         };
     }
 
@@ -59,7 +59,7 @@ export default class Login extends React.Component {
                             <button
                                 type="button"
                                 className="toggle-btn"
-                                onClick={() => this.handleClick()}
+                                // onClick={() => this.handleClick()}
                             >
                                 log in
                             </button>
@@ -105,6 +105,12 @@ export default class Login extends React.Component {
                                 Forgot your password?
                                 <Link to="/password/reset/start">reset</Link>
                             </p>
+                            {this.state.error && (
+                                <p>
+                                    This email or password does not exist. Try
+                                    again.
+                                </p>
+                            )}
                         </div>
                     </div>
                 </div>

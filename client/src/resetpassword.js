@@ -4,22 +4,28 @@ import axios from "./axios";
 import { Link } from "react-router-dom";
 
 export default class ResetPassword extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             error: false,
             // email: "",
             renderView: 1,
         };
     }
+
+    handleChange(e) {
+        console.log("e target name: ", e.target.name);
+        this.setState(
+            {
+                [e.target.name]: e.target.value,
+            },
+            () => console.log("this.state after setState: ", this.state)
+        );
+    }
+
     handleClick() {
-        let route = [
-            "/password/reset/start",
-            "/password/reset/verify",
-            "/password/reset/verify",
-        ];
         axios
-            .post(route[this.state.renderView], this.state)
+            .post("/password/reset/start", this.state)
             .then((resp) => {
                 console.log("resp from server: ", resp);
                 if (resp.data.success) {
@@ -41,17 +47,33 @@ export default class ResetPassword extends React.Component {
                 });
             });
     }
-    handleChange(e) {
-        console.log("e target name: ", e.target.name);
-        this.setState(
-            {
-                [e.target.name]: e.target.value,
-            },
-            () => console.log("this.state after setState: ", this.state)
-        );
+
+    secondHandleClick() {
+        axios
+            .post("/password/reset/verify", this.state)
+            .then((resp) => {
+                console.log("resp from server: ", resp);
+                if (resp.data.success) {
+                    // location.replace("/");
+                    this.setState({
+                        renderView: this.state.renderView + 1,
+                    });
+                } else {
+                    // console.log("error");
+                    this.setState({
+                        error: true,
+                    });
+                }
+            })
+            .catch((err) => {
+                console.log("err in registr: ", err);
+                // this.setState({
+                //     error: true,
+                // });
+            });
     }
 
-    determineWhichViewToRender() {
+    renderDifferentView() {
         if (this.state.renderView === 1) {
             return (
                 <>
@@ -62,8 +84,6 @@ export default class ResetPassword extends React.Component {
                                 <div className="button-box">
                                     <div id="btn"></div>
                                     <div id="login" className="input-group">
-                                        {this.state.error && <p>error</p>}
-                                        {this.determineWhichViewToRender()}
                                         <p>
                                             Please enter the email address with
                                             which you registered
@@ -71,14 +91,13 @@ export default class ResetPassword extends React.Component {
                                         <input
                                             className="input-field"
                                             onChange={(e) =>
-                                                this.determineWhichViewToRender(
-                                                    e
-                                                )
+                                                this.handleChange(e)
                                             }
                                             name="email"
                                             type="text"
                                             placeholder="email"
                                         />
+
                                         <button
                                             type="submit"
                                             className="submit-btn"
@@ -97,23 +116,19 @@ export default class ResetPassword extends React.Component {
             return (
                 <>
                     <div>
-                        <h1>reset password</h1>
                         <div className="hero">
+                            <h1>reset password</h1>
                             <div className="form-box">
                                 <div className="button-box">
                                     <div id="btn"></div>
                                     <div id="login" className="input-group">
-                                        {this.state.error && <p>error</p>}
-                                        {this.determineWhichViewToRender()}
                                         <p>
                                             Please enter the code you received
                                         </p>
                                         <input
                                             className="input-field"
                                             onChange={(e) =>
-                                                this.determineWhichViewToRender(
-                                                    e
-                                                )
+                                                this.handleChange(e)
                                             }
                                             name="code"
                                             type="text"
@@ -123,18 +138,18 @@ export default class ResetPassword extends React.Component {
                                         <input
                                             className="input-field"
                                             onChange={(e) =>
-                                                this.determineWhichViewToRender(
-                                                    e
-                                                )
+                                                this.handleChange(e)
                                             }
                                             name="newPassword"
                                             type="password"
-                                            placeholder=" new password"
+                                            placeholder="new password"
                                         />
                                         <button
                                             type="submit"
                                             className="submit-btn"
-                                            onClick={() => this.handleClick()}
+                                            onClick={() =>
+                                                this.secondHandleClick()
+                                            }
                                         >
                                             submit
                                         </button>
@@ -144,11 +159,6 @@ export default class ResetPassword extends React.Component {
                         </div>
                     </div>
                 </>
-                // <div>
-                //     <input name="password" />
-                //     <input name="code" />
-                //     <button></button>
-                // </div>
             );
         } else if (this.state.renderView === 3) {
             return (
@@ -167,7 +177,11 @@ export default class ResetPassword extends React.Component {
         return (
             <div>
                 {/* call the method */}
-                {this.determineWhichViewToRender()}
+                {this.renderDifferentView()}
+                {this.state.error && <p>Oops, something went wrong.</p>}
+                <p>
+                    <Link to="/login">LOGIN</Link>
+                </p>
             </div>
         );
     }

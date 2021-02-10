@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
 import Welcome from "./welcome";
 import Logo from "./logo";
-import App from "./app.js";
+// import App from "./app.js";
 
 let elem;
 if (location.pathname === "/welcome") {
