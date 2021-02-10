@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "./axios";
 import { Link } from "react-router-dom";
+import Logo from "./logo";
 
 export default class Login extends React.Component {
     constructor() {
@@ -17,13 +18,13 @@ export default class Login extends React.Component {
             .post("/login", this.state)
             .then((resp) => {
                 console.log("resp from server: ", resp);
-                if (!this.state.success) {
+                if (resp.data.success) {
+                    location.replace(<Logo />);
+                } else {
                     console.log("error");
                     this.setState({
                         error: true,
                     });
-                } else {
-                    location.replace("/");
                 }
             })
             .catch((err) => {
@@ -50,25 +51,64 @@ export default class Login extends React.Component {
 
     render() {
         return (
-            <div className="form">
-                {this.state.error && <p>Something broke</p>}
-                <h1>LogIn</h1>
-                {/* strategy #2 for binding: arrow functions! */}
-                <input
-                    onChange={(e) => this.handleChange(e)}
-                    name="email"
-                    type="text"
-                    placeholder="email"
-                />
-                <input
-                    onChange={(e) => this.handleChange(e)}
-                    name="password"
-                    type="password"
-                    placeholder="password"
-                />
-                <button onClick={() => this.handleClick()}>logIn</button>
-                <Link to="/register">Click here to register!</Link>
-            </div>
+            <>
+                <div className="hero">
+                    <div className="form-box">
+                        <div className="button-box">
+                            <div id="btn"></div>
+                            <button
+                                type="button"
+                                className="toggle-btn"
+                                onClick={() => this.handleClick()}
+                            >
+                                log in
+                            </button>
+                            {/* <button
+                            type="button"
+                            className="toggle-btn"
+                            onClick={() => this.handleClick()}
+                        >
+                            register
+                        </button> */}
+                        </div>
+                        <div id="login" className="input-group">
+                            {this.state.error && (
+                                <p>Something went wrong, Please try again!</p>
+                            )}
+                            {/* <h1>LogIn</h1> */}
+                            {/* strategy #2 for binding: arrow functions! */}
+                            <input
+                                className="input-field"
+                                onChange={(e) => this.handleChange(e)}
+                                name="email"
+                                type="text"
+                                placeholder="email"
+                            />
+                            <input
+                                className="input-field"
+                                onChange={(e) => this.handleChange(e)}
+                                name="password"
+                                type="password"
+                                placeholder="password"
+                            />
+                            <button
+                                type="submit"
+                                className="submit-btn"
+                                onClick={() => this.handleClick()}
+                            >
+                                log in
+                            </button>
+                            <p>
+                                Click <Link to="/">here</Link> to register
+                            </p>
+                            <p>
+                                Forgot your password?
+                                <Link to="/resetpassword">reset</Link>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </>
         );
     }
 }

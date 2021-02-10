@@ -1,25 +1,97 @@
 body {
-    background-color: gray;
+    background-color: rgb(227, 196, 237);
 }
 /* 
 .newClass {
     color: blue;
 } */
 
-.form {
-    color: blue;
-    display: "flex";
+.icon {
+    grid-area: auto;
+    width: 90px;
+    height: 65px;
 }
 
-input {
-    justify-content: "flex-start";
-    align-items: "center";
-    flex-direction: "row";
-    width: "20vw";
+.input-group {
+    top: 200px;
+    position: absolute;
+    width: 200px;
+    transition: 0.5s;
+}
+.input-field {
+    width: 100%;
+    padding: 10px 0;
+    margin: 5px 0;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid #999;
+    outline: none;
+    background: transparent;
+}
+
+.toggle-btn {
+    padding: 10px 30px;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    outline: none;
+    position: relative;
+}
+
+.button-box {
+    width: 220px;
+    margin: 35px auto;
+    position: relative;
+    box-shadow: 0 0 20px 9px #ff61241f;
+    border-radius: 30px;
+}
+
+.form-box {
+    width: 380px;
+    height: 480px;
+    position: relative;
+    margin: 6% auto;
+    background: #fff;
     padding: 5px;
-    border-style: "solid";
-    border-width: 1;
-    border-color: "green";
-    border-radius: 5;
-    color: "green";
+    border-radius: 5%;
+    overflow: hidden;
+}
+.hero {
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+        url("violet.jpg");
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+}
+#btn {
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 118px;
+    height: 100%;
+    background: linear-gradient(to right, #ff105f, #ffad86);
+    border-radius: 30px;
+    transition: 0.5s;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 10px 30px;
+    cursor: pointer;
+    display: block;
+    margin: auto;
+    background: linear-gradient(to right, #ff105f, #ffad86);
+    border: 0;
+    outline: none;
+    border-radius: 30px;
+}
+#login {
+    left: 50px;
+}
+
+#register {
+    left: 450px;
 }

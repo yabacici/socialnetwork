@@ -40,19 +40,19 @@ app.use(express.static(path.join(__dirname, "..", "client", "public")));
 //     length: 6
 // });
 
-app.post("/someRoute", function (req, res) {
-    sendEmail(
-        "cecileeboa@gmail.com",
-        "1284712874",
-        "here is your reset password code"
-    )
-        .then(() => {
-            console.log("yay");
-        })
-        .catch((err) => {
-            console.log("there is an error!", err);
-        });
-});
+// app.post("/someRoute", function (req, res) {
+//     sendEmail(
+//         "cecileeboa@gmail.com",
+//         "1284712874",
+//         "here is your reset password code"
+//     )
+//         .then(() => {
+//             console.log("yay");
+//         })
+//         .catch((err) => {
+//             console.log("there is an error!", err);
+//         });
+// });
 
 app.use(express.json());
 
@@ -88,44 +88,45 @@ app.post("/registration", (req, res) => {
                 console.log(results);
                 console.log("added to db");
                 req.session.userId = results.rows[0].id;
-                return res.json(results.rows[0]);
+                return res.json({ user: results.rows[0], success: true });
             })
             .catch((err) => {
                 console.log("errorMessage:Oops, something went wrong!!!", err);
+                res.json({ success: false });
             });
     });
+});
+
+app.get("/login", (req, res) => {
+    if (req.session.userId) {
+        res.redirect("/login");
+    } else {
+        res.sendFile(path.join(__dirname, "..", "client", "index.html"));
+    }
 });
 
 app.post("/login", (req, res) => {
     const { email, pass } = req.body;
     console.log("email pass: ", email, pass);
-    db.getLoginData(email)
-        .then(({ rows }) => {
-            console.log("rows: ", rows);
-            const hashedPw = rows[0].password;
-            compare(pass, hashedPw)
-                .then((match) => {
-                    if (match) {
-                        req.session.userId = rows[0].id;
-                        req.session.loggedIn = rows[0].id; // check if necessary
-                    } else {
-                        console.log(
-                            "errorMessage:This email or password doesn't exist"
-                        );
-                    }
-                })
-                .catch((err) => {
-                    console.log("err in compare:", err);
-                });
-        })
-        .catch((err) => {
-            console.log("err in getlogin data: ", err);
-            res.render("login", {
-                title: "Please log in",
-                errorMessage: "This email or password doesn't exist.",
+    db.findUserByEmail(email).then(({ rows }) => {
+        console.log("rows: ", rows);
+        const hashedPw = rows[0].password;
+        compare(pass, hashedPw)
+            .then((match) => {
+                if (match) {
+                    req.session.userId = rows[0].id;
+                    req.session.loggedIn = rows[0].id; // check if necessary
+                } else {
+                    console.log(
+                        "errorMessage:This email or password doesn't exist"
+                    );
+                }
+            })
+            .catch((err) => {
+                console.log("err in compare:", err);
+                res.json({ success: false });
             });
-        });
-    // }
+    });
 });
 
 app.get("/logout", (req, res) => {

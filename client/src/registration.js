@@ -29,23 +29,25 @@ export default class Registration extends React.Component {
         axios
             .post("/registration", this.state) //dataToSendToServer
             .then((resp) => {
-                console.log("resp from server: ", resp);
-                if (!this.state.success) {
+                // console.log("resp from server: ", resp);
+                const user = resp.data.user;
+                const success = resp.data.success;
+                if (resp.data.success) {
+                    location.replace("/");
+                } else {
                     console.log("error");
                     this.setState({
                         error: true,
                     });
-                } else {
-                    location.replace("/");
                 }
-            })
-            .catch((err) => {
-                console.log("err in registration: ", err);
-                this.setState({
-                    error: true,
-                });
-                // render an error message
             });
+        // .catch((err) => {
+        //     console.log("err in registration: ", err);
+        //     this.setState({
+        //         error: true,
+        //     });
+        //     // render an error message
+        // });
     }
 
     // this is how we handle user input in React!
@@ -75,36 +77,69 @@ export default class Registration extends React.Component {
         return (
             <>
                 <h1>Registration</h1>
-                <div className="form">
-                    {this.state.error && <p>Something broke</p>}
-                    {/* strategy #2 for binding: arrow functions! */}
-                    <input
-                        className="registration-input"
-                        onChange={(e) => this.handleChange(e)}
-                        name="first"
-                        type="text"
-                        placeholder="first"
-                    />
-                    <input
-                        onChange={(e) => this.handleChange(e)}
-                        name="last"
-                        type="text"
-                        placeholder="last"
-                    />
-                    <input
-                        onChange={(e) => this.handleChange(e)}
-                        name="email"
-                        type="text"
-                        placeholder="email"
-                    />
-                    <input
-                        onChange={(e) => this.handleChange(e)}
-                        name="password"
-                        type="password"
-                        placeholder="password"
-                    />
-                    <button onClick={() => this.handleClick()}>submit</button>
-                    <Link to="/login">Click here to Log in!</Link>;
+                <div className="hero">
+                    <div className="form-box">
+                        <div className="button-box">
+                            <div id="btn"></div>
+                            <button
+                                type="button"
+                                className="toggle-btn"
+                                onClick={() => this.handleClick()}
+                            >
+                                register
+                            </button>
+                            {/* <button
+                                type="button"
+                                className="toggle-btn"
+                                onClick={() => this.handleClick()}
+                            >
+                                login
+                            </button> */}
+                        </div>
+                        <div id="login" className="input-group">
+                            {this.state.error && <p>Something broke</p>}
+                            {/* strategy #2 for binding: arrow functions! */}
+                            <input
+                                className="input-field"
+                                onChange={(e) => this.handleChange(e)}
+                                name="first"
+                                type="text"
+                                placeholder="first"
+                            />
+                            <input
+                                className="input-field"
+                                onChange={(e) => this.handleChange(e)}
+                                name="last"
+                                type="text"
+                                placeholder="last"
+                            />
+                            <input
+                                className="input-field"
+                                onChange={(e) => this.handleChange(e)}
+                                name="email"
+                                type="text"
+                                placeholder="email"
+                            />
+                            <input
+                                className="input-field"
+                                onChange={(e) => this.handleChange(e)}
+                                name="password"
+                                type="password"
+                                placeholder="password"
+                            />
+                            <button
+                                type="submit"
+                                className="submit-btn"
+                                onClick={() => this.handleClick()}
+                            >
+                                register
+                            </button>
+                            <p>
+                                Already a member?{" "}
+                                <Link to="/login">Log in</Link>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </>
         );
