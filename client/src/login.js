@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "./axios";
 import { Link } from "react-router-dom";
-import Logo from "./logo";
+// import Logo from "./logo";
 
 export default class Login extends React.Component {
     constructor() {
@@ -19,7 +19,7 @@ export default class Login extends React.Component {
             .then((resp) => {
                 console.log("resp from server: ", resp);
                 if (resp.data.success) {
-                    location.replace(<Logo />);
+                    location.replace("/");
                 } else {
                     console.log("error");
                     this.setState({
@@ -103,7 +103,7 @@ export default class Login extends React.Component {
                             </p>
                             <p>
                                 Forgot your password?
-                                <Link to="/resetpassword">reset</Link>
+                                <Link to="/password/reset/start">reset</Link>
                             </p>
                         </div>
                     </div>

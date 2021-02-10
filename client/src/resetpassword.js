@@ -8,17 +8,25 @@ export default class ResetPassword extends React.Component {
         super(props);
         this.state = {
             error: false,
-            email: "",
+            // email: "",
             renderView: 1,
         };
     }
     handleClick() {
+        let route = [
+            "/password/reset/start",
+            "/password/reset/verify",
+            "/password/reset/verify",
+        ];
         axios
-            .post("/resetpassword", this.state)
+            .post(route[this.state.renderView], this.state)
             .then((resp) => {
                 console.log("resp from server: ", resp);
                 if (resp.data.success) {
-                    location.replace("/");
+                    // location.replace("/");
+                    this.setState({
+                        renderView: this.state.renderView + 1,
+                    });
                 } else {
                     console.log("error");
                     this.setState({
@@ -84,11 +92,6 @@ export default class ResetPassword extends React.Component {
                         </div>
                     </div>
                 </>
-
-                // <div>
-                //     <input name="email" />
-                //     <button></button>
-                // </div>
             );
         } else if (this.state.renderView === 2) {
             return (
