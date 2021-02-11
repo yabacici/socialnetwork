@@ -5,16 +5,36 @@ const path = require("path");
 const cryptoRandomString = require("crypto-random-string");
 const csurf = require("csurf");
 const db = require("./db");
+const s3 = require("./s3");
 let { hash, compare } = require("./bc");
-console.log(hash);
 const { sendEmail } = require("./ses");
 const cookieSession = require("cookie-session");
+const multer = require("multer");
+const uidSafe = require("uid-safe");
 let cookie_sec;
 if (process.env.sessionSecret) {
     cookie_sec = process.env.sessionSecret;
 } else {
     cookie_sec = require("./secrets").sessionSecret;
 }
+
+const diskStorage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, __dirname + "/uploads");
+    },
+    filename: function (req, file, callback) {
+        uidSafe(24).then(function (uid) {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    },
+});
+// middleware
+const uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 2097152,
+    },
+});
 
 app.use(
     cookieSession({
@@ -35,33 +55,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(compression());
 
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
-// app.post("password/reset/start", (req, res) => {
-//     const secretCode = cryptoRandomString({
-//     length: 6
-// });
-
-// app.post("/someRoute", function (req, res) {
-//     sendEmail(
-//         "ceb@gmail.com",
-//         "1284712874",
-//         "here is your reset password code"
-//     )
-//         .then(() => {
-//             console.log("yay");
-//         })
-//         .catch((err) => {
-//             console.log("there is an error!", err);
-//         });
-// });
-
 app.use(express.json());
 
-app.get("/welcome", function (req, res) {
+app.get("/welcome", (req, res) => {
     if (req.session.userId) {
         res.redirect("/");
     } else {
         // user is not logged in... don't redirect!
-        // what happens after send file, afetr we send out html back as a response,
+        // after a file is sent, we send out html back as a response,
         //is start.js
         res.sendFile(path.join(__dirname, "..", "client", "index.html"));
     }
@@ -88,21 +89,6 @@ app.post("/registration", (req, res) => {
             });
     });
 });
-
-// app.post("/registration", async (req, res) => {
-//     const { first, last, email, password } = req.body;
-//     try {
-//         // hash is async and returns a promise : the hashpassword
-//         // we store it i. a var bcuz we are excpecting sth out
-//         const hashedPw = await hash(password);
-//         const results = await db.addUser(first, last, email, hashedPw);
-//         req.session.userId = results.rows[0].id;
-//         return res.json({ user: results.rows[0], success: true });
-//     } catch (err) {
-//         console.log("err in POST/registration", err);
-//         res.json({ success: false });
-//     }
-// });
 
 app.get("/login", (req, res) => {
     if (req.session.userId) {
@@ -135,6 +121,49 @@ app.post("/login", (req, res) => {
             });
     });
 });
+//  endpoint to fetch the user data when App mounts.
+//  route that returns the logged-in user's info.
+app.get("/user", (req, res) => {
+    console.log("user get route");
+    console.log(req.session.userId);
+    db.getUserData(req.session.userId)
+        .then((results) => {
+            console.log("getting user info");
+            console.log("rows", results.rows[0]);
+            res.json({ success: true, rows: results.rows[0] });
+            //req.session.userId sends data back with res.json)
+        })
+        .catch((err) => {
+            console.log("error fetching user data: ", err);
+            res.json({ success: false });
+        });
+});
+
+app.post("/profile-pic", uploader.single("file"), s3.upload, (req, res) => {
+    console.log("I'm the post route user/profile-pic");
+    const { filename } = req.file;
+    let url =
+        "https://cecile-socialnetwork.s3.amazonaws.com/" + req.file.filename; // create socialnet imgs
+    console.log("req.session.userId: ", req.session.userId);
+
+    if (filename) {
+        db.uploadPic(req.session.userId, url)
+            .then((results) => {
+                console.log(results.rows);
+                res.json({
+                    rows: results.rows[0].profile_pic_url,
+                    success: true,
+                });
+            })
+            .catch((err) => {
+                console.log("Error uploading profile pic: ", err);
+                res.json({ success: false });
+            });
+    } else {
+        console.log("no file or too large ");
+        res.json({ success: false });
+    }
+});
 
 // user enters email
 app.post("/password/reset/start", (req, res) => {
@@ -146,7 +175,7 @@ app.post("/password/reset/start", (req, res) => {
             console.log(" real user !");
             console.log("rows :", rows);
             const dbEmail = rows[0].email;
-            console.log("emaildb: ", dbEmail);
+            console.log("dbemail: ", dbEmail);
             const secretCode = cryptoRandomString({
                 length: 6,
             });
@@ -182,7 +211,6 @@ app.post("/password/reset/start", (req, res) => {
 // user enters code and new password
 app.post("/password/reset/verify", (req, res) => {
     // console.log("verify route");
-    // console.log(req.body);
     const { code, password } = req.body;
     // find code in dt by email address
     db.verifyCode(code)
@@ -199,9 +227,6 @@ app.post("/password/reset/verify", (req, res) => {
             console.log("results", results.rows);
             if (currentCode) {
                 // compare code you got from client (req.body) with code in db
-                //     console.log("error in verify code");
-                //     return res.json({ success: false });
-                // } else {
                 hash(password)
                     //when the 2 match then hash the password
                     .then((hashedPw) => {
@@ -246,4 +271,18 @@ app.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening.");
 });
 
-//////////WITHOUT ASYNC AWAIT////
+//////////WITH ASYNC AWAIT////
+// app.post("/registration", async (req, res) => {
+//     const { first, last, email, password } = req.body;
+//     try {
+//         // hash is async and returns a promise : the hashpassword
+//         // we store it i. a var bcuz we are excpecting sth out
+//         const hashedPw = await hash(password);
+//         const results = await db.addUser(first, last, email, hashedPw);
+//         req.session.userId = results.rows[0].id;
+//         return res.json({ user: results.rows[0], success: true });
+//     } catch (err) {
+//         console.log("err in POST/registration", err);
+//         res.json({ success: false });
+//     }
+// });
