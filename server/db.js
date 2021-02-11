@@ -25,7 +25,6 @@ module.exports.insertResetCode = (code, email) => {
 module.exports.verifyCode = () => {
     const q = `SELECT * FROM reset_codes
     WHERE CURRENT_TIMESTAMP - timestamp < INTERVAL '10 minutes'`;
-    // const params = [code];
     return db.query(q);
 };
 

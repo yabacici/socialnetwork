@@ -180,7 +180,7 @@ app.post("/password/reset/start", (req, res) => {
         });
 });
 // user enters code and new password
-app.post("/password/reset/verify", async (req, res) => {
+app.post("/password/reset/verify", (req, res) => {
     // console.log("verify route");
     // console.log(req.body);
     const { code, password } = req.body;
@@ -189,9 +189,14 @@ app.post("/password/reset/verify", async (req, res) => {
         .then((results) => {
             const emailCode = results.rows[0].email;
             let currentCode = results.rows.find((row) => {
+                console.log(row.code);
+                console.log(req.body);
                 return row.code === req.body.code;
             });
-            console.log(results.rows);
+            console.log("this is a pw", password);
+            console.log("code", code);
+            console.log("currentcode:", currentCode);
+            console.log("results", results.rows);
             if (currentCode) {
                 // compare code you got from client (req.body) with code in db
                 //     console.log("error in verify code");
