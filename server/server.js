@@ -9,14 +9,17 @@ const s3 = require("./s3");
 let { hash, compare } = require("./bc");
 const { sendEmail } = require("./ses");
 const cookieSession = require("cookie-session");
+const secret = require("./secrets");
+console.log("I am the secret:", secret);
 const multer = require("multer");
 const uidSafe = require("uid-safe");
-let cookie_sec;
-if (process.env.sessionSecret) {
-    cookie_sec = process.env.sessionSecret;
-} else {
-    cookie_sec = require("./secrets").sessionSecret;
-}
+// let cookie_sec;
+// if (process.env.sessionSecret) {
+//     cookie_sec = process.env.sessionSecret;
+// } else {
+//     cookie_sec = require("./secrets").sessionSecret;
+// }
+// console.log(cookie_sec);
 
 const diskStorage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -39,7 +42,8 @@ const uploader = multer({
 app.use(
     cookieSession({
         maxAge: 1000 * 6 * 50 * 14,
-        secret: cookie_sec,
+        keys: ["AWS_KEY", "AWS_SECRET"],
+        secret: secret,
         // 2 weeks
     })
 );
@@ -67,28 +71,22 @@ app.get("/welcome", (req, res) => {
         res.sendFile(path.join(__dirname, "..", "client", "index.html"));
     }
 });
+// app.post("/registration", async (req, res) => {
+//     const { first, last, email, password } = req.body;
+//     try {
+//         // hash is async and returns a promise : the hashpassword
+//         // we store it i. a var bcuz we are excpecting sth out
+//         const hashedPw = await hash(password);
+//         const results = await db.addUser(first, last, email, hashedPw);
+//         req.session.userId = results.rows[0].id;
+//         return res.json({ user: results.rows[0], success: true });
+//     } catch (err) {
+//         console.log("err in POST/registration", err);
+//         res.json({ success: false });
+//     }
+// });
 
-app.post("/registration", (req, res) => {
-    // console.log(req.body);
-    // console.log(req.body.password);
-
-    const { first, last, email, password } = req.body;
-
-    hash(password).then((hashedPw) => {
-        console.log("hashedPw in /registration:", hashedPw);
-        db.addUser(first, last, email, hashedPw)
-            .then((results) => {
-                console.log(results);
-                console.log("added to db");
-                req.session.userId = results.rows[0].id;
-                return res.json({ user: results.rows[0], success: true });
-            })
-            .catch((err) => {
-                console.log("errorMessage:Oops, something went wrong!!!", err);
-                res.json({ success: false });
-            });
-    });
-});
+//
 
 app.get("/login", (req, res) => {
     if (req.session.userId) {
@@ -142,8 +140,7 @@ app.get("/user", (req, res) => {
 app.post("/profile-pic", uploader.single("file"), s3.upload, (req, res) => {
     console.log("I'm the post route user/profile-pic");
     const { filename } = req.file;
-    let url =
-        "https://cecile-socialnetwork.s3.amazonaws.com/" + req.file.filename; // create socialnet imgs
+    let url = "https://cecile-imageboard.s3.amazonaws.com/" + req.file.filename; // create socialnet imgs
     console.log("req.session.userId: ", req.session.userId);
 
     if (filename) {
@@ -163,6 +160,23 @@ app.post("/profile-pic", uploader.single("file"), s3.upload, (req, res) => {
         console.log("no file or too large ");
         res.json({ success: false });
     }
+});
+
+// create bio column in users db
+
+app.post("/bio", (req, res) => {
+    console.log(" bio route page");
+    const { bio } = req.body;
+
+    db.addBio(req.session.userId, bio)
+        .then((results) => {
+            console.log("results rows:", results.rows[0].bio);
+            res.json({ success: true, bio: results.rows[0].bio });
+        })
+        .catch((err) => {
+            console.log(" error in edit bio: ", err);
+            res.json({ success: false });
+        });
 });
 
 // user enters email
@@ -199,7 +213,7 @@ app.post("/password/reset/start", (req, res) => {
                         });
                 });
             } else {
-                console.log("Oops, error with code or email address");
+                console.log("error with code or email address");
                 res.json({ success: false });
             }
         })
@@ -253,11 +267,12 @@ app.post("/password/reset/verify", (req, res) => {
             console.log("Error verifying code: ", err);
         });
 });
-
+// use ancher tag href= logout
 app.get("/logout", (req, res) => {
     req.session = null;
     res.redirect("/");
 });
+//
 app.get("*", function (req, res) {
     if (!req.session.userId) {
         // if user not logged in redirect to welcome
@@ -271,18 +286,26 @@ app.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening.");
 });
 
-//////////WITH ASYNC AWAIT////
-// app.post("/registration", async (req, res) => {
+//////////WITHOUT ASYNC AWAIT////
+
+// app.post("/registration", (req, res) => {
+//     // console.log(req.body);
+//     // console.log(req.body.password);
+
 //     const { first, last, email, password } = req.body;
-//     try {
-//         // hash is async and returns a promise : the hashpassword
-//         // we store it i. a var bcuz we are excpecting sth out
-//         const hashedPw = await hash(password);
-//         const results = await db.addUser(first, last, email, hashedPw);
-//         req.session.userId = results.rows[0].id;
-//         return res.json({ user: results.rows[0], success: true });
-//     } catch (err) {
-//         console.log("err in POST/registration", err);
-//         res.json({ success: false });
-//     }
+
+//     hash(password).then((hashedPw) => {
+//         console.log("hashedPw in /registration:", hashedPw);
+//         db.addUser(first, last, email, hashedPw)
+//             .then((results) => {
+//                 console.log(results);
+//                 console.log("added to db");
+//                 req.session.userId = results.rows[0].id;
+//                 return res.json({ user: results.rows[0], success: true });
+//             })
+//             .catch((err) => {
+//                 console.log("errorMessage:Oops, something went wrong!!!", err);
+//                 res.json({ success: false });
+//             });
+//     });
 // });

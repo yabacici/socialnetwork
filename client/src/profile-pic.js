@@ -1,29 +1,26 @@
 //  showing so use fn component
 
-// export default function ProfilePic(props) {
-//     console.log(props);
-//     return (
-//         <div onClick={props.toggleUploader} className="profile-pic">
-//             <img
-//                 className="avatar"
-//                 src={props.profilePicUrl || "default.jpg"}
-//                 alt={`${props.firstName}`}
-//             />
-//         </div>
-//     );
-// }
+// Receives props from App to display the profile pic
+// (it should render a default if none is available).
+// It also receives a method from App allowing it to toggle the uploader when it is clicked.
 
-export default function (props) {
+export default function ProfilePic({
+    firstName,
+    lastName,
+    profilePicUrl,
+    toggleUploader,
+    size = "",
+}) {
     return (
         <div className="profile-pic">
             <img
-                className="avatar"
-                onClick={props.toggleUploader}
-                src={props.profilePicUrl || "default.jpg"}
-                // alt={props.firstName + props.lastName}
+                className={`${size} avatar`}
+                onClick={toggleUploader}
+                src={profilePicUrl || "default.jpg"}
+                alt={`${firstName} ${lastName}`}
             />
             <div>
-                <label>{props.firstName + " " + props.lastName}</label>
+                <label>{firstName + " " + lastName}</label>
             </div>
         </div>
     );

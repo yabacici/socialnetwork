@@ -114,3 +114,9 @@ body {
     height: 250px;
     align-items: center;
 }
+
+textarea {
+    border: 5px dashed black;
+    width: 250px;
+    height: 250px;
+}

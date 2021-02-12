@@ -3,6 +3,9 @@ import axios from "./axios";
 import ProfilePic from "./profile-pic";
 import Uploader from "./uploader";
 import Logo from "./logo";
+import Profile from "./profile";
+// import OtherProfile from "./otherProfile";
+// import { BrowserRouter, Route } from "react-router-dom";
 
 export default class App extends Component {
     constructor(props) {
@@ -17,9 +20,11 @@ export default class App extends Component {
     }
 
     componentDidMount() {
+        console.log("APP MOUNTED");
         //req.session.userId (send it back with res.json)
         axios
             .get("/user")
+            // .get("/api/user") do the same in app get user in server
             .then((res) => {
                 console.log("fetch user's data from DB");
                 console.log("successful res data ", res.data.rows);
@@ -28,6 +33,10 @@ export default class App extends Component {
                     firstName: res.data.rows.first,
                     lastName: res.data.rows.last,
                     profilePicUrl: res.data.rows.profile_pic_url,
+                    // App loads then makes a request to get the user info from the DB,
+                    // We need to make sure that it now ALSO returns the BIO.
+                    bio: res.data.rows.bio,
+                    id: res.data.rows.id,
                 });
             })
             .catch((err) => {
@@ -52,11 +61,18 @@ export default class App extends Component {
     }
 
     render() {
-        // console.log("this state in app:", this.state);
-        // if (!this.state.id) {
-        //     return null;
-        // }
+        console.log("this state in app:", this.state);
+        if (!this.state.id) {
+            // return null;
+            return (
+                <div className="spinner-container">
+                    <p>spinner container</p>
+                </div>
+            );
+        }
+
         return (
+            // <BrowserRouter>
             <div className="app">
                 <Logo />
                 <ProfilePic
@@ -65,26 +81,21 @@ export default class App extends Component {
                     profilePicUrl={this.state.profilePicUrl}
                     uploaderVisible={this.state.uploaderVisible}
                     toggleUploader={this.toggleUploader}
-                    // size="small"
+                    // size=""
                 />
-                {/* <div className="editProfilePic">
-                    <button onClick={() => this.toggleUploader()}>
-                        Edit Profile Pic
-                    </button>
-                </div> */}
-                {/* <Profile
-                    id={this.state.id}
-                    first={this.state.first}
-                    last={this.state.last}
-                    imageUrl={this.state.profile_pic_url}
+
+                <Profile
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    profilePicUrl={this.state.profilePicUrl}
                     onClick={() => this.toggleUploader()}
                     bio={this.state.bio}
-                    setBio={(e) => this.setBio(e)}
-                /> */}
+                    submitBio={(e) => this.submitBio(e)}
+                />
 
                 {/* <a onClick={() => this.toggleUploader()}>
-                    <img className="camera" src="camera.jpg" />
-                </a> */}
+                        <img className="camera" src="camera.jpg" />
+                    </a> */}
                 {this.state.uploaderVisible && (
                     <Uploader setProfilePicUrl={this.setProfilePicUrl} />
                 )}
@@ -93,9 +104,45 @@ export default class App extends Component {
                     className="submit-btn"
                     onClick={() => this.toggleUploader()}
                 >
-                    Click here
+                    <img className="camera" src="camera.jpg" />
+                    Want to change your image?
                 </button>
             </div>
+            // </BrowserRouter>
         );
     }
+}
+
+{
+    /* <ProfilePic
+                    firstName={this.state.firstName}
+                    lastName={this.state.lastName}
+                    profilePicUrl={this.state.profilePicUrl}
+                    uploaderVisible={this.state.uploaderVisible}
+                    toggleUploader={this.toggleUploader}
+                    // size="small"
+                /> */
+}
+{
+    /* <div className="editProfilePic">
+                    <button onClick={() => this.toggleUploader()}>
+                        Edit Profile Pic
+                    </button>
+                </div> */
+}
+{
+    /* <Route exact path='/' render={()=>(
+                    // put Profile in here
+                )}/> */
+}
+{
+    /* <Route path="user/:id" component={otherProfile} /> */
+}
+{
+    /* EITHER ABOVE OR BELOW */
+}
+{
+    /* <Route path="user/:id" render={(props)=>(
+                    // put OtherProfile in here with key, match, history
+                )}/>  */
 }
