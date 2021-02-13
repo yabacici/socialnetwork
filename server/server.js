@@ -121,7 +121,7 @@ app.post("/login", (req, res) => {
 });
 //  endpoint to fetch the user data when App mounts.
 //  route that returns the logged-in user's info.
-app.get("/user", (req, res) => {
+app.get("/api/user", (req, res) => {
     console.log("user get route");
     console.log(req.session.userId);
     db.getUserData(req.session.userId)
@@ -265,6 +265,31 @@ app.post("/password/reset/verify", (req, res) => {
 
         .catch((err) => {
             console.log("Error verifying code: ", err);
+        });
+});
+// Create a new route for retrieving the user's information by id
+// Get the user information from the database & make sure you handle requests for non-existing users!
+// Return a JSON response
+
+app.get("/user-display/:id", (req, res) => {
+    const { id } = req.params;
+    console.log("id: ", id);
+    console.log("req.session.userId", req.session.userId);
+
+    db.getUserData(id)
+        .then((results) => {
+            console.log("get user data");
+            console.log("results rows", results.rows[0]);
+
+            res.json({
+                rows: results.rows[0],
+                cookie: req.session.userId,
+                success: true,
+            });
+        })
+        .catch((err) => {
+            console.log("error getting user data: ", err);
+            res.json({ success: false });
         });
 });
 // use ancher tag href= logout

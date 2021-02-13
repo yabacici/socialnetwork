@@ -4,8 +4,8 @@ import ProfilePic from "./profile-pic";
 import Uploader from "./uploader";
 import Logo from "./logo";
 import Profile from "./profile";
-// import OtherProfile from "./otherProfile";
-// import { BrowserRouter, Route } from "react-router-dom";
+import OtherProfile from "./otherProfile";
+import { BrowserRouter, Route } from "react-router-dom";
 
 export default class App extends Component {
     constructor(props) {
@@ -23,7 +23,7 @@ export default class App extends Component {
         console.log("APP MOUNTED");
         //req.session.userId (send it back with res.json)
         axios
-            .get("/user")
+            .get("/api/user")
             // .get("/api/user") do the same in app get user in server
             .then((res) => {
                 console.log("fetch user's data from DB");
@@ -61,54 +61,83 @@ export default class App extends Component {
     }
 
     render() {
-        console.log("this state in app:", this.state);
+        console.log("this.state in app:", this.state);
         if (!this.state.id) {
-            // return null;
-            return (
-                <div className="spinner-container">
-                    <p>spinner container</p>
-                </div>
-            );
+            return null;
+            // return (
+            //     <div className="spinner-container">
+            //         <p>spinner container</p>
+            //     </div>
+            // );
         }
 
         return (
-            // <BrowserRouter>
-            <div className="app">
-                <Logo />
-                <ProfilePic
-                    firstName={this.state.firstName}
-                    lastName={this.state.lastName}
-                    profilePicUrl={this.state.profilePicUrl}
-                    uploaderVisible={this.state.uploaderVisible}
-                    toggleUploader={this.toggleUploader}
-                    // size=""
-                />
+            <BrowserRouter>
+                <div className="app">
+                    <Logo />
+                    <ProfilePic
+                        firstName={this.state.firstName}
+                        lastName={this.state.lastName}
+                        profilePicUrl={this.state.profilePicUrl}
+                        uploaderVisible={this.state.uploaderVisible}
+                        toggleUploader={this.toggleUploader}
+                        // size=""
+                    />
+                    {this.state.uploaderVisible && (
+                        <Uploader setProfilePicUrl={this.setProfilePicUrl} />
+                    )}
+                    <Route
+                        exact
+                        path="/"
+                        render={() => (
+                            <Profile
+                                id={this.state.id}
+                                firstName={this.state.firstName}
+                                lastName={this.state.lastName}
+                                profilePicUrl={this.state.profilePicUrl}
+                                bio={this.state.bio}
+                            />
+                        )}
+                    />
+                    <Route
+                        path="/user/:id"
+                        render={(props) => (
+                            <OtherProfile
+                                key={props.match.url}
+                                match={props.match}
+                                history={props.history}
+                            />
+                        )}
+                    />
+                    {/* <Profile
+                        firstName={this.state.firstName}
+                        lastName={this.state.lastName}
+                        profilePicUrl={this.state.profilePicUrl}
+                        onClick={() => this.toggleUploader()}
+                        bio={this.state.bio}
+                        submitBio={(e) => this.submitBio(e)}
+                    />
 
-                <Profile
-                    firstName={this.state.firstName}
-                    lastName={this.state.lastName}
-                    profilePicUrl={this.state.profilePicUrl}
-                    onClick={() => this.toggleUploader()}
-                    bio={this.state.bio}
-                    submitBio={(e) => this.submitBio(e)}
-                />
+                    <div className="editPic">
+                        <button onClick={() => this.toggleUploader()}>
+                            Edit
+                        </button>
+                    </div> */}
 
-                {/* <a onClick={() => this.toggleUploader()}>
+                    {/* <a onClick={() => this.toggleUploader()}>
                         <img className="camera" src="camera.jpg" />
                     </a> */}
-                {this.state.uploaderVisible && (
-                    <Uploader setProfilePicUrl={this.setProfilePicUrl} />
-                )}
-                <button
-                    type="submit"
-                    className="submit-btn"
-                    onClick={() => this.toggleUploader()}
-                >
-                    <img className="camera" src="camera.jpg" />
-                    Want to change your image?
-                </button>
-            </div>
-            // </BrowserRouter>
+
+                    {/* <button
+                        type="submit"
+                        className="submit-btn"
+                        onClick={() => this.toggleUploader()}
+                    >
+                        <img className="camera" src="camera.jpg" />
+                        Want to change your image?
+                    </button> */}
+                </div>{" "}
+            </BrowserRouter>
         );
     }
 }
@@ -123,13 +152,7 @@ export default class App extends Component {
                     // size="small"
                 /> */
 }
-{
-    /* <div className="editProfilePic">
-                    <button onClick={() => this.toggleUploader()}>
-                        Edit Profile Pic
-                    </button>
-                </div> */
-}
+
 {
     /* <Route exact path='/' render={()=>(
                     // put Profile in here

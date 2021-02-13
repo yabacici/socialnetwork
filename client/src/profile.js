@@ -10,14 +10,14 @@ export default function Profile(props) {
     console.log(" props profile: ", props);
     return (
         <div className="border-green">
-            <h1>
-                I am the profile component {props.firstName} {props.lastName}
-            </h1>
             <ProfilePic
                 firstName={props.firstName}
                 lastName={props.lastName}
                 profilePicUrl={props.profilePicUrl}
             />
+            <h2>
+                I am the profile component {props.firstName} {props.lastName}
+            </h2>
             <BioEditor bio={props.bio} />
         </div>
     );
