@@ -76,7 +76,7 @@ export default class Registration extends React.Component {
     render() {
         return (
             <>
-                <h1>Registration</h1>
+                {/* <h1>Registration</h1> */}
                 <div className="hero">
                     <div className="form-box">
                         <div className="button-box">
@@ -86,7 +86,7 @@ export default class Registration extends React.Component {
                                 className="toggle-btn"
                                 onClick={() => this.handleClick()}
                             >
-                                register
+                                REGISTER
                             </button>
                             {/* <button
                                 type="button"
@@ -132,7 +132,7 @@ export default class Registration extends React.Component {
                                 className="submit-btn"
                                 onClick={() => this.handleClick()}
                             >
-                                register
+                                Sign up
                             </button>
                             <p>
                                 Already a member?{" "}

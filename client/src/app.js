@@ -1,11 +1,14 @@
 import { Component } from "react";
 import axios from "./axios";
-import ProfilePic from "./profile-pic";
+// import ProfilePic from "./profile-pic";
 import Uploader from "./uploader";
-import Logo from "./logo";
+// import Logo from "./logo";
 import Profile from "./profile";
 import OtherProfile from "./otherProfile";
 import { BrowserRouter, Route } from "react-router-dom";
+import FindPeople from "./findPeople";
+import Nav from "./nav";
+import { Link } from "react-router-dom";
 
 export default class App extends Component {
     constructor(props) {
@@ -74,17 +77,24 @@ export default class App extends Component {
         return (
             <BrowserRouter>
                 <div className="app">
-                    <Logo />
-                    <ProfilePic
+                    <Link to="/users">
+                        <button>Find people</button>
+                    </Link>
+                    <Nav
                         firstName={this.state.firstName}
-                        lastName={this.state.lastName}
-                        profilePicUrl={this.state.profilePicUrl}
-                        uploaderVisible={this.state.uploaderVisible}
+                        // lastName={this.state.lastName}
+                        // profilePicUrl={this.state.profilePicUrl}
+                        // uploaderVisible={this.state.uploaderVisible}
                         toggleUploader={this.toggleUploader}
-                        // size=""
+                        // size="small"
                     />
                     {this.state.uploaderVisible && (
-                        <Uploader setProfilePicUrl={this.setProfilePicUrl} />
+                        <Uploader
+                            firstName={this.state.firstName}
+                            lastName={this.state.lastName}
+                            toggleUploader={this.toggleUploader}
+                            setProfilePicUrl={this.setProfilePicUrl}
+                        />
                     )}
                     <Route
                         exact
@@ -96,9 +106,11 @@ export default class App extends Component {
                                 lastName={this.state.lastName}
                                 profilePicUrl={this.state.profilePicUrl}
                                 bio={this.state.bio}
+                                toggleUploader={this.toggleUploader}
                             />
                         )}
                     />
+
                     <Route
                         path="/user/:id"
                         render={(props) => (
@@ -106,6 +118,17 @@ export default class App extends Component {
                                 key={props.match.url}
                                 match={props.match}
                                 history={props.history}
+                            />
+                        )}
+                    />
+                    <Route
+                        path="/findpeople/:val"
+                        render={() => (
+                            <FindPeople
+                                id={this.state.id}
+                                first={this.state.first}
+                                last={this.state.last}
+                                profilePicUrl={this.state.profilePicUrl}
                             />
                         )}
                     />
@@ -123,11 +146,9 @@ export default class App extends Component {
                             Edit
                         </button>
                     </div> */}
-
                     {/* <a onClick={() => this.toggleUploader()}>
                         <img className="camera" src="camera.jpg" />
                     </a> */}
-
                     {/* <button
                         type="submit"
                         className="submit-btn"

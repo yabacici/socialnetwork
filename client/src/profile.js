@@ -15,10 +15,17 @@ export default function Profile(props) {
                 lastName={props.lastName}
                 profilePicUrl={props.profilePicUrl}
             />
+            {/* <button onClick={() => props.toggleUploader()}>
+                New profile picture
+            </button> */}
             <h2>
-                I am the profile component {props.firstName} {props.lastName}
+                Hello {props.firstName} {props.lastName},
             </h2>
-            <BioEditor bio={props.bio} />
+            <BioEditor
+                firstName={props.firstName}
+                lastName={props.lastName}
+                bio={props.bio}
+            />
         </div>
     );
 }

@@ -61,7 +61,7 @@ export default class Login extends React.Component {
                                 className="toggle-btn"
                                 // onClick={() => this.handleClick()}
                             >
-                                log in
+                                LOG IN
                             </button>
                             {/* <button
                             type="button"
@@ -96,13 +96,13 @@ export default class Login extends React.Component {
                                 className="submit-btn"
                                 onClick={() => this.handleClick()}
                             >
-                                log in
+                                Sign in
                             </button>
                             <p>
                                 Click <Link to="/">here</Link> to register
                             </p>
                             <p>
-                                Forgot your password?
+                                Forgot your password? {""}
                                 <Link to="/password/reset/start">reset</Link>
                             </p>
                             {this.state.error && (

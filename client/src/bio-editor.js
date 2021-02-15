@@ -86,11 +86,27 @@ export default class BioEditor extends React.Component {
             );
         }
         return (
-            <div>
-                <h1>I am the Bio Editor</h1>
-                <p>this will be the users bio that we get from props</p>
-                <button onClick={() => this.toggleEditingMode()}>click</button>
+            <div className="bio-container">
+                <p className="bio-text">{this.state.bio}</p>
+                <button
+                    className="edit-click"
+                    onClick={() => this.toggleEditingMode()}
+                >
+                    {this.state.bio ? "Edit Bio" : "Add Bio"}
+                </button>
+                {this.state.error && (
+                    <p className="error-message">
+                        Oops something went wrong! Please try again.
+                    </p>
+                )}
             </div>
         );
+        // return (
+        //     <div>
+        //         <h1>I am the Bio Editor</h1>
+        //         <p>this will be the users bio that we get from props</p>
+        //         <button onClick={() => this.toggleEditingMode()}>click</button>
+        //     </div>
+        // );
     }
 }

@@ -53,18 +53,72 @@ export default class OtherProfile extends Component {
     }
 
     render() {
-        if (this.state.id)
+        if (this.state.id) {
             return (
-                <div>
-                    <h1>I am the other profile!!!</h1>
-                    <h2>
-                        I will display the other user's information including
-                        their profile picture and bio but NOONE will be able to
-                        edit information in here! cause it's not your profile to
-                        edit!
-                        {this.state.bio}
-                    </h2>
+                <div className="profile-box">
+                    <img
+                        className="profile-pic"
+                        src={this.state.profilePicUrl}
+                        alt={`${this.state.firstName} ${this.state.lastName}`}
+                    />
+                    <h3>
+                        {this.state.firstName} {this.state.lastName}
+                    </h3>
+
+                    <p className="bio-text">{this.state.bio}</p>
                 </div>
             );
+        }
+        return (
+            <div className="no-user-found-box">
+                {this.state.error && (
+                    <p className="error-msg-dark">
+                        Oh oh, this user does not exist!
+                    </p>
+                )}
+
+                <Link to="/">
+                    <button className="btn-purple">Back to my profile</button>
+                </Link>
+            </div>
+        );
     }
 }
+
+// render() {
+
+//     <Link to="/">
+//         <button className="btn-purple">Back to my profile</button>
+//     </Link>;
+//     if (this.state.id)
+//         return (
+//             <div>
+//                 <h1>I am the other profile!!!</h1>
+//                 <h2>Bio</h2>
+//                 <img
+//                     src={this.state.ProfilePicUrl}
+//                     alt={this.state.firstName + this.state.lastName}
+//                 />
+//                 <div>This is :{this.state.bio}</div>
+//                 <div>first name: {this.state.firstName}</div>
+//                 <div>last name: {this.state.lastName}</div>
+//             </div>
+//         );
+// }
+
+// render() {
+//     if (this.state.id)
+//         return (
+//             <div>
+//                 <h1>I am the other profile!!!</h1>
+//                 <h2>
+//                     I will display the other user's information including
+//                     their profile picture and bio but NOONE will be able to
+//                     edit information in here! cause it's not your profile to
+//                     edit!
+//                     {this.state.bio}
+//                 </h2>
+//             </div>
+//         );
+// }
+// }

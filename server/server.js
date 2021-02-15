@@ -71,22 +71,21 @@ app.get("/welcome", (req, res) => {
         res.sendFile(path.join(__dirname, "..", "client", "index.html"));
     }
 });
-// app.post("/registration", async (req, res) => {
-//     const { first, last, email, password } = req.body;
-//     try {
-//         // hash is async and returns a promise : the hashpassword
-//         // we store it i. a var bcuz we are excpecting sth out
-//         const hashedPw = await hash(password);
-//         const results = await db.addUser(first, last, email, hashedPw);
-//         req.session.userId = results.rows[0].id;
-//         return res.json({ user: results.rows[0], success: true });
-//     } catch (err) {
-//         console.log("err in POST/registration", err);
-//         res.json({ success: false });
-//     }
-// });
 
-//
+app.post("/registration", async (req, res) => {
+    const { first, last, email, password } = req.body;
+    try {
+        // hash is async and returns a promise : the hashpassword
+        // we store it i. a var bcuz we are excpecting sth out
+        const hashedPw = await hash(password);
+        const results = await db.addUser(first, last, email, hashedPw);
+        req.session.userId = results.rows[0].id;
+        return res.json({ user: results.rows[0], success: true });
+    } catch (err) {
+        console.log("err in POST/registration", err);
+        res.json({ success: false });
+    }
+});
 
 app.get("/login", (req, res) => {
     if (req.session.userId) {
@@ -137,6 +136,32 @@ app.get("/api/user", (req, res) => {
         });
 });
 
+app.get("/users", (req, res) => {
+    db.getThreeUsers()
+        .then((results) => {
+            console.log("get three registered");
+            console.log("results", results.rows);
+        })
+        .catch((err) => {
+            console.log("error getting 3 registered: ", err);
+            res.json({ success: false });
+        });
+});
+
+app.get("/findpeople/:val", async (req, res) => {
+    const userId = req.session.userId;
+    const val = req.params.val;
+    db.getMatchingUsers(userId, val)
+        .then((results) => {
+            console.log("results", results.rows);
+            res.json(results.rows);
+        })
+        .catch((err) => {
+            console.log("error fetching user data: ", err);
+            res.json({ success: false });
+        });
+});
+
 app.post("/profile-pic", uploader.single("file"), s3.upload, (req, res) => {
     console.log("I'm the post route user/profile-pic");
     const { filename } = req.file;
@@ -160,6 +185,19 @@ app.post("/profile-pic", uploader.single("file"), s3.upload, (req, res) => {
         console.log("no file or too large ");
         res.json({ success: false });
     }
+});
+
+app.post("/deleteProfilePicture", async (req, res) => {
+    const userId = req.session.userId;
+    const def = ["default.png"];
+    console.log("id in /delete: ", userId);
+    console.log("/delete here");
+
+    await db.deleteImage(userId, def);
+
+    res.json({
+        sucess: true,
+    });
 });
 
 // create bio column in users db

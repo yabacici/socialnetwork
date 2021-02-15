@@ -41,6 +41,16 @@ export default class Uploader extends Component {
             });
     }
 
+    delete(e) {
+        e.preventDefault();
+        console.log("delete button");
+        const pic = "default.jpg";
+        axios.post("/delete-profile-pic", pic).then((resp) => {
+            console.log(resp);
+            this.props.setProfilePicUrl("default.jpg");
+        });
+    }
+
     render() {
         return (
             <div className="uploader">
@@ -57,6 +67,13 @@ export default class Uploader extends Component {
                     onClick={(e) => this.submit(e)}
                 >
                     Upload
+                </button>
+                <button
+                    type="submit"
+                    className="submit-btn"
+                    onClick={(e) => this.delete(e)}
+                >
+                    Delete
                 </button>
             </div>
         );
