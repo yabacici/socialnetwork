@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function FindPeople() {
-    const [users, setUsers] = useState("");
-    const [userInput, setUserInput] = useState([]);
-    const [error, setError] = useState(false);
+    const [users, setUsers] = useState([]);
+    const [userInput, setUserInput] = useState("");
+    // const [error, setError] = useState(false);
 
     // const handleChange = (e) => {
     //     setUsers(e.target.value);
@@ -16,7 +16,8 @@ export default function FindPeople() {
         axios
             .get("/users")
             .then(({ data }) => {
-                setUsers(data.rows);
+                console.log(data);
+                setUsers(data);
             })
             .catch((err) => {
                 console.log("error in get users", err);
@@ -26,13 +27,14 @@ export default function FindPeople() {
     useEffect(() => {
         console.log("useEffect in effect for the second time!");
         let abort = false;
+        console.log("this is user input:", userInput);
         if (userInput) {
             axios
                 .get(`/findpeople/${userInput}`)
                 .then(({ data }) => {
                     if (!abort) {
-                        console.log(data.rows);
-                        setUsers(data.rows);
+                        console.log(data);
+                        setUsers(data);
                     } else {
                         abort = true;
                     }
@@ -55,14 +57,6 @@ export default function FindPeople() {
     return (
         <div>
             <h1>Search more people</h1>{" "}
-            <input
-                name="users"
-                type="text"
-                className="search-input"
-                placeholder="find people"
-                onChange={(e) => setUserInput(e.target.value)}
-                autoComplete="off"
-            />
             {users &&
                 users.map((user) => {
                     return (
@@ -79,6 +73,14 @@ export default function FindPeople() {
                         </Link>
                     );
                 })}
+            <input
+                name="users"
+                type="text"
+                className="search-input"
+                placeholder="find people"
+                onChange={(e) => setUserInput(e.target.value)}
+                autoComplete="off"
+            />
         </div>
     );
 }

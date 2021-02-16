@@ -123,7 +123,7 @@ export default class App extends Component {
                         )}
                     />
                     <Route
-                        path="/findusers"
+                        path="/find-users"
                         render={() => (
                             <FindPeople
                                 id={this.state.id}

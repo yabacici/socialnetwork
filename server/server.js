@@ -141,6 +141,7 @@ app.get("/users", (req, res) => {
         .then((results) => {
             console.log("get three registered");
             console.log("results", results.rows);
+            res.json(results.rows);
         })
         .catch((err) => {
             console.log("error getting 3 registered: ", err);
@@ -148,10 +149,21 @@ app.get("/users", (req, res) => {
         });
 });
 
-app.get("/findpeople/:users", (req, res) => {
-    const userId = req.session.userId;
+app.get("/findpeople/:val", (req, res) => {
+    // const userId = req.session.userId;
     const val = req.params.val;
-    db.getMatchingUsers(userId, val)
+    console.log("this is val:", val);
+    // console.log("this is req.params", req.params);
+    db.getThreeUsers()
+        .then((results) => {
+            console.log("get three registered");
+            console.log("results", results.rows);
+        })
+        .catch((err) => {
+            console.log("error getting 3 registered: ", err);
+            res.json({ success: false });
+        });
+    db.getMatchingUsers(val)
         .then((results) => {
             console.log("results", results.rows);
             res.json(results.rows);

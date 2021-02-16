@@ -65,7 +65,7 @@ module.exports.getThreeUsers = () => {
 };
 
 module.exports.getMatchingUsers = (val) => {
-    const q = `SELECT firstname FROM users WHERE firstname ILIKE $1;`;
+    const q = `SELECT id, first, last, profile_pic_url  FROM users WHERE first ILIKE $1;`;
     const params = [val + "%"];
     return db.query(q, params);
 };
