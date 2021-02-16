@@ -148,7 +148,7 @@ app.get("/users", (req, res) => {
         });
 });
 
-app.get("/findpeople/:val", async (req, res) => {
+app.get("/findpeople/:users", (req, res) => {
     const userId = req.session.userId;
     const val = req.params.val;
     db.getMatchingUsers(userId, val)

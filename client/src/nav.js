@@ -18,9 +18,7 @@ export default function Nav(props) {
                 <li>
                     <a href="#">Chat</a>
                 </li>
-                <li>
-                    <a href="#">Work</a>
-                </li>
+
                 <li>
                     <a href="/logout">logout</a>
                 </li>

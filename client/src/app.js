@@ -19,6 +19,7 @@ export default class App extends Component {
             uploaderVisible: false,
         };
         this.toggleUploader = this.toggleUploader.bind(this);
+        this.setProfilePicUrl = this.setProfilePicUrl.bind(this);
         // BIND means we can use "this" within our methods
     }
 
@@ -77,16 +78,16 @@ export default class App extends Component {
         return (
             <BrowserRouter>
                 <div className="app">
-                    <Link to="/users">
+                    {/* <Link to="/find-users">
                         <button>Find people</button>
-                    </Link>
+                    </Link> */}
                     <Nav
                         firstName={this.state.firstName}
-                        // lastName={this.state.lastName}
-                        // profilePicUrl={this.state.profilePicUrl}
-                        // uploaderVisible={this.state.uploaderVisible}
+                        lastName={this.state.lastName}
+                        profilePicUrl={this.state.profilePicUrl}
+                        uploaderVisible={this.state.uploaderVisible}
                         toggleUploader={this.toggleUploader}
-                        // size="small"
+                        size="small"
                     />
                     {this.state.uploaderVisible && (
                         <Uploader
@@ -96,6 +97,7 @@ export default class App extends Component {
                             setProfilePicUrl={this.setProfilePicUrl}
                         />
                     )}
+
                     <Route
                         exact
                         path="/"
@@ -110,7 +112,6 @@ export default class App extends Component {
                             />
                         )}
                     />
-
                     <Route
                         path="/user/:id"
                         render={(props) => (
@@ -122,7 +123,7 @@ export default class App extends Component {
                         )}
                     />
                     <Route
-                        path="/findpeople/:val"
+                        path="/findusers"
                         render={() => (
                             <FindPeople
                                 id={this.state.id}

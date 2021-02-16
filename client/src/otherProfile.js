@@ -70,15 +70,13 @@ export default class OtherProfile extends Component {
             );
         }
         return (
-            <div className="no-user-found-box">
+            <div className="no-user-container">
                 {this.state.error && (
-                    <p className="error-msg-dark">
-                        Oh oh, this user does not exist!
-                    </p>
+                    <p className="error-msg">this user does not exist!</p>
                 )}
 
                 <Link to="/">
-                    <button className="btn-purple">Back to my profile</button>
+                    <button className="btn-box">Back to my profile</button>
                 </Link>
             </div>
         );

@@ -68,13 +68,15 @@ export default class Uploader extends Component {
                 >
                     Upload
                 </button>
-                <button
-                    type="submit"
-                    className="submit-btn"
-                    onClick={(e) => this.delete(e)}
-                >
-                    Delete
-                </button>
+                <div className="delete-btn">
+                    <button
+                        type="submit"
+                        className="submit-btn"
+                        onClick={(e) => this.delete(e)}
+                    >
+                        Delete
+                    </button>
+                </div>
             </div>
         );
     }
