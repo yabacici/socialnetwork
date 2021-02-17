@@ -342,10 +342,10 @@ app.get("/user-display/:id", (req, res) => {
             res.json({ success: false });
         });
 });
-app.get("/friendshipstatus/:id", (req, res) => {
+app.get("/friendship-status/:id", (req, res) => {
     const loggedInUser = req.session.userId;
     const requestedUserId = req.params.id;
-    // console.log("requestedUser: ", requestedUser);
+    // console.log("requestedUser: ", requestedUserId);
 
     db.checkFriendStatus(requestedUserId, loggedInUser)
         .then((results) => {
@@ -360,7 +360,7 @@ app.get("/friendshipstatus/:id", (req, res) => {
                     friends: true,
                 });
             } else if (results.rows.length > 0 && !results.rows[0].accepted) {
-                if (loggedInUser == rows[0].sender_id) {
+                if (loggedInUser == results.rows[0].sender_id) {
                     res.json({
                         button: "cancel",
                     });
@@ -380,24 +380,35 @@ app.get("/friendshipstatus/:id", (req, res) => {
             res.json({ success: false });
         });
 });
-app.get("/users", (req, res) => {
-    db.getThreeUsers()
-        .then((results) => {
-            console.log("get three registered");
-            console.log("results", results.rows);
-            res.json(results.rows);
-        })
-        .catch((err) => {
-            console.log("error getting 3 registered: ", err);
-            res.json({ success: false });
-        });
-});
-app.post("/friendrequest/send", (req, res) => {
+// user friendship request
+app.post("/friendship/send", (req, res) => {
     db.makeFriendRequest(req.session.userID, req.body.id);
-    console.log(results.rows);
+    // console.log(results.rows);
     res.json({
         friends: false,
         button: "Cancel Friend Request",
+    }).catch((err) => {
+        console.log("error in friendrequest", err);
+        res.json({ success: false });
+    });
+});
+app.post("/friendship/accept", (req, res) => {
+    db.acceptFriendReq(req.session.userID, req.body.id);
+    res.json({
+        friends: true,
+        button: "End",
+    }).catch((err) => {
+        console.log("error in friendrequest", err);
+        res.json({ success: false });
+    });
+});
+
+app.post("/friendship/end", (req, res) => {
+    db.unfriend(req.session.userID, req.body.id);
+    res.json({
+        friends: false,
+        //Send Friend Request,
+        button: "Send",
     }).catch((err) => {
         console.log("error in friendrequest", err);
         res.json({ success: false });

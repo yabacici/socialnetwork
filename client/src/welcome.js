@@ -10,7 +10,7 @@ import Nav from "./nav";
 export default function Welcome() {
     return (
         <div>
-            <Nav />
+            {/* <Nav /> */}
             <HashRouter>
                 <h1>Welcome: find your peers!</h1>
                 <div>

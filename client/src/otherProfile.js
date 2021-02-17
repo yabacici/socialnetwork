@@ -79,7 +79,8 @@ export default class OtherProfile extends Component {
                 <Link to="/">
                     <button className="btn-box">Back to my profile</button>
                 </Link>
-                <FriendshipButton recipientId={this.state.id} />
+
+                <FriendshipButton id={this.state.id} />
             </div>
         );
     }
