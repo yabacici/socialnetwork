@@ -1,6 +1,7 @@
 import { Component } from "react";
 import axios from "./axios";
 import { Link } from "react-router-dom";
+import FriendshipButton from "./friendshipButton";
 
 export default class OtherProfile extends Component {
     constructor(props) {
@@ -78,6 +79,7 @@ export default class OtherProfile extends Component {
                 <Link to="/">
                     <button className="btn-box">Back to my profile</button>
                 </Link>
+                <FriendshipButton recipientId={this.state.id} />
             </div>
         );
     }

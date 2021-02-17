@@ -69,8 +69,39 @@ module.exports.getMatchingUsers = (val) => {
     const params = [val + "%"];
     return db.query(q, params);
 };
-// module.exports.getMatchingUsers = (val) => {
-//     const q = `SELECT * FROM users WHERE first ILIKE ($1) ORDER BY first ASC LIMIT 5`;
-//     const params = [val + "%"];
-//     return db.query(q, params);
-// };
+
+module.exports.makeFriendRequest = (id, otherUser) => {
+    const q = `insert into friendships (sender_id, recipient_id) values ($1, $2) returning accepted;`;
+    const params = [id, otherUser];
+    return db.query(q, params);
+};
+
+module.exports.checkFriendStatus = (recipientId, senderId) => {
+    const q = `SELECT * FROM friendships
+    WHERE (recipient_id = $1 AND sender_id = $2)
+    OR (recipient_id = $2 AND sender_id = $1)`;
+    const params = [recipientId, senderId];
+    return db.query(q, params);
+};
+
+module.exports.createFriendship = (recipientId, senderId) => {
+    const q = `INSERT INTO friendships (recipient_id, sender_id) 
+     VALUES ($1, $2) RETURNING *`;
+    const params = [recipientId, senderId];
+    return db.query(q, params);
+};
+module.exports.acceptFriendReq = (senderId, recipientId) => {
+    const q = `UPDATE friendships
+    SET accepted = true
+    WHERE sender_id = $1 AND recipient_id = $2 OR recipient_id = $1 AND sender_id = $2
+    RETURNING accepted`;
+    const params = [senderId, recipientId];
+    return db.query(q, params);
+};
+
+module.exports.unfriend = (recipientId, senderId) => {
+    const q = `DELETE FROM friendships WHERE recipient_id = $1 AND sender_id = $2
+    OR sender_id = $1 AND recipient_id = $2`;
+    const params = [recipientId, senderId];
+    return db.query(q, params);
+};

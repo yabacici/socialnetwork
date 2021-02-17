@@ -342,6 +342,92 @@ app.get("/user-display/:id", (req, res) => {
             res.json({ success: false });
         });
 });
+app.get("/friendshipstatus/:requestedUser", (req, res) => {
+    const loggedInUser = req.session.userId;
+    const { requestedUser } = req.params;
+    // console.log("requestedUser: ", requestedUser);
+
+    db.checkFriendStatus(requestedUser, loggedInUser)
+        .then((results) => {
+            if (results.rows.length == 0) {
+                res.json({
+                    // rows: results.rows,
+                    button: "send",
+                    friends: false,
+                });
+            } else if (results.rows.length > 0 && results.rows[0].accepted) {
+                res.json({
+                    // rows: rows,
+                    button: "end",
+                    friends: true,
+                  
+                });
+            } else if (results.rows.length > 0 && !results.rows[0].accepted) {
+                if (loggedInUser == rows[0].sender_id) {
+                    res.json({
+                        // rows: rows,
+                        button: "cancel",
+                        // success: true,
+                    });
+                } else if (loggedInUser == rows[0].recipient_id) {
+                    res.json({
+                        // rows: rows,
+                        button: "accept",
+                        // success: true,
+                    });
+                }
+            }
+        })
+        .catch((err) => {
+            console.log("err in checkfriendship: ", err);
+            res.json({ success: false });
+        });
+});
+
+app.post("/check-friendship/:status", (req, res) => {
+    const requestedUser = req.body.id;
+    const loggedInUser = req.session.userId;
+    // console.log("post send friend request route");
+    // console.log("req.params.status: ", req.params.status);
+    // console.log("req.body: ", req.body);
+
+    if (req.params.status == "send") {
+        console.log("send friendship");
+        db.createFriendship(requestedUser, loggedInUser)
+            .then(({ rows }) => {
+                console.log("friend request inserted in DB");
+                console.log("rows in createFriendship: ", rows);
+
+                res.json({
+                    button: "cancel",
+                });
+            })
+            .catch((err) => {
+                console.log("there was an error in createFriendship: ", err);
+                res.json({ success: false });
+            });
+    } else if (req.params.status == "accept") {
+        console.log("cancel friendship request");
+        db.acceptFriendship(loggedInUser, requestedUser)
+            .then(({ rows }) => {
+                console.log("rows: ", rows);
+
+                res.json({ button: "end" });
+            })
+            .catch((err) => {
+                console.log("err in accept frienship: ", err);
+            });
+    } else if (req.params.status == "cancel" || req.params.status == "end") {
+        console.log("end friendship");
+        db.unfriend(requestedUser, loggedInUser)
+            .then(({ rows }) => {
+                console.log("rows: ", rows);
+                res.json({ button: "send" });
+            })
+            .catch((err) => {
+                console.log("err in accept frienship: ", err);
+            });
+    }
 // use ancher tag href= logout
 app.get("/logout", (req, res) => {
     req.session = null;
