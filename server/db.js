@@ -105,9 +105,3 @@ module.exports.unfriend = (recipientId, senderId) => {
     const params = [recipientId, senderId];
     return db.query(q, params);
 };
-
-module.exports.recipient = (id, otherUser) => {
-    const q = `select accepted from friendships WHERE recipient_id = $1 and sender_id = $2`;
-    const params = [id, otherUser];
-    return db.query(q, params);
-};

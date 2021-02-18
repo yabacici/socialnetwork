@@ -59,7 +59,7 @@ export default class OtherProfile extends Component {
                 <div className="profile-box">
                     <img
                         className="profile-pic"
-                        src={this.state.profilePicUrl}
+                        src={this.state.profilePicUrl || "/avatar.png"}
                         alt={`${this.state.firstName} ${this.state.lastName}`}
                     />
                     <h3>
@@ -67,6 +67,7 @@ export default class OtherProfile extends Component {
                     </h3>
 
                     <p className="bio-text">{this.state.bio}</p>
+                    <FriendshipButton id={this.state.id} />
                 </div>
             );
         }
@@ -79,8 +80,6 @@ export default class OtherProfile extends Component {
                 <Link to="/">
                     <button className="btn-box">Back to my profile</button>
                 </Link>
-
-                <FriendshipButton id={this.state.id} />
             </div>
         );
     }

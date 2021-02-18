@@ -388,7 +388,7 @@ app.post("/friendship/send", (req, res) => {
         friends: false,
         button: "Cancel Friend Request",
     }).catch((err) => {
-        console.log("error in friendrequest", err);
+        console.log("error in friendship send", err);
         res.json({ success: false });
     });
 });
@@ -398,7 +398,7 @@ app.post("/friendship/accept", (req, res) => {
         friends: true,
         button: "End",
     }).catch((err) => {
-        console.log("error in friendrequest", err);
+        console.log("error in friendship accept", err);
         res.json({ success: false });
     });
 });
@@ -410,7 +410,7 @@ app.post("/friendship/end", (req, res) => {
         //Send Friend Request,
         button: "Send",
     }).catch((err) => {
-        console.log("error in friendrequest", err);
+        console.log("error in friendship end", err);
         res.json({ success: false });
     });
 });

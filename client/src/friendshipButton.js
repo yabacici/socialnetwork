@@ -53,8 +53,11 @@ export default function FriendshipButton(props) {
         }
     };
     return (
-        <div onClick={submitButton} className="btn-friend">
-            {buttonText}
+        // <div onClick={submitButton} className="btn-friend">
+        //     {buttonText}
+        // </div>
+        <div>
+            <button onClick={() => submitButton()}>{buttonText}</button>
         </div>
     );
 }
