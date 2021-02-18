@@ -1,14 +1,30 @@
 import ReactDOM from "react-dom";
+// import React from "react";
 import Welcome from "./welcome";
 import App from "./app.js";
+import { createStore, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import reduxPromise from "redux-promise";
+import { reducer } from "./reducer";
+import { composeWithDevTools } from "redux-devtools-extension";
+
 // import Logo from "./logo";
+
+const store = createStore(
+    reducer,
+    composeWithDevTools(applyMiddleware(reduxPromise))
+);
 
 let elem;
 if (location.pathname === "/welcome") {
     elem = <Welcome />;
 } else {
     // elem = <p>I am not the welcome route!</p>;
-    elem = <App />;
+    elem = (
+        <Provider store={store}>
+            <App />
+        </Provider>
+    );
     // elem = <Logo />;
 }
 

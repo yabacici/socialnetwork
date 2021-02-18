@@ -3,14 +3,15 @@ import axios from "./axios";
 
 export default function FriendshipButton(props) {
     const [buttonText, setButtonText] = useState("");
+    // const [click, setClick] = useState(false);
     // const [error, setError] = useState(false);
 
-    // const buttonText = {
-    //     send: "Make Friendship Request",
-    //     accept: "Accept Friendship Request",
-    //     cancel: "Cancel Friendship Request",
-    //     end: "End Friendship",
-    // };
+    const btnText = {
+        send: "Make Friendship Request",
+        accept: "Accept Friendship Request",
+        cancel: "Cancel Friendship Request",
+        end: "End Friendship",
+    };
 
     useEffect(() => {
         console.log("useEffect in friendship effect!");
@@ -22,19 +23,23 @@ export default function FriendshipButton(props) {
         axios
             .get(`/friendship-status/${props.id}`)
             .then((results) => {
+                console.log("i am the props.id :", props.id);
                 console.log("results button: ", results.data.button);
-                setButtonText(results.data.button);
+                setButtonText(btnText[results.data.button]);
             })
             .catch((err) => {
-                console.log("err in get friendship users: ", err);
+                console.log("err in get friendship status: ", err);
             });
-    }, [props.buttonText]);
+    }, []);
 
     const submitButton = async () => {
+        console.log("I was clicked");
+        console.log("I am the button:", buttonText);
         if (buttonText === "Make Friendship Request") {
             const status = await axios.post("/friendship/send", {
                 id: props.id,
             });
+            console.log("status", status);
             setButtonText(status.data.button);
         } else if (
             buttonText === "End Friendship" ||

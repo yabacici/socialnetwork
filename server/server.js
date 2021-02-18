@@ -381,9 +381,9 @@ app.get("/friendship-status/:id", (req, res) => {
         });
 });
 // user friendship request
-app.post("/friendship/send", (req, res) => {
-    db.makeFriendRequest(req.session.userID, req.body.id);
-    // console.log(results.rows);
+app.post("/friendship/send", async (req, res) => {
+    const results = await db.makeFriendRequest(req.session.userID, req.body.id);
+    console.log(results.rows);
     res.json({
         friends: false,
         button: "Cancel Friend Request",
@@ -392,8 +392,9 @@ app.post("/friendship/send", (req, res) => {
         res.json({ success: false });
     });
 });
-app.post("/friendship/accept", (req, res) => {
-    db.acceptFriendReq(req.session.userID, req.body.id);
+app.post("/friendship/accept", async (req, res) => {
+    const results = await db.acceptFriendReq(req.session.userID, req.body.id);
+    console.log(results.rows);
     res.json({
         friends: true,
         button: "End",
@@ -403,8 +404,9 @@ app.post("/friendship/accept", (req, res) => {
     });
 });
 
-app.post("/friendship/end", (req, res) => {
-    db.unfriend(req.session.userID, req.body.id);
+app.post("/friendship/end", async (req, res) => {
+    const results = db.unfriend(req.session.userID, req.body.id);
+    console.log(results.rows);
     res.json({
         friends: false,
         //Send Friend Request,
