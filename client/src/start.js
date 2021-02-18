@@ -2,6 +2,7 @@ import ReactDOM from "react-dom";
 // import React from "react";
 import Welcome from "./welcome";
 import App from "./app.js";
+// encounter redux
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import reduxPromise from "redux-promise";

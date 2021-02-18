@@ -5,10 +5,11 @@ import Uploader from "./uploader";
 // import Logo from "./logo";
 import Profile from "./profile";
 import OtherProfile from "./otherProfile";
+import Friends from "./friends";
 import { BrowserRouter, Route } from "react-router-dom";
 import FindPeople from "./findPeople";
 import Nav from "./nav";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 export default class App extends Component {
     constructor(props) {
@@ -132,6 +133,10 @@ export default class App extends Component {
                                 profilePicUrl={this.state.profilePicUrl}
                             />
                         )}
+                    />
+                    <Route
+                        path="/show-friends-wannabes"
+                        render={() => <Friends userId={this.state.id} />}
                     />
                     {/* <Profile
                         firstName={this.state.firstName}

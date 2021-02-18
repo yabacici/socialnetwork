@@ -105,3 +105,18 @@ module.exports.unfriend = (recipientId, senderId) => {
     const params = [recipientId, senderId];
     return db.query(q, params);
 };
+// this route will retrieve the list of friends and wannabes from the database and send it back to the client
+// this will return users that you're friends with and users who have sent YOU a friend request.
+//  Users that you've sent a friend request to will NOT show up in this query.
+
+module.exports.friendsWannabesList = (userId) => {
+    const q = `SELECT users.id, first, last, profile_pic_url, accepted, sender_id
+    FROM friendships
+    JOIN users
+    ON (accepted = false AND recipient_id = $1 AND sender_id = users.id)
+    OR (accepted = false AND recipient_id = users.id AND sender_id = $1)
+    OR (accepted = true AND recipient_id = $1 AND sender_id = users.id)
+    OR (accepted = true AND sender_id = $1 AND recipient_id = users.id)`;
+    const params = [userId];
+    return db.query(q, params);
+};

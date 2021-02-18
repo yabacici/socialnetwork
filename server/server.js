@@ -382,7 +382,7 @@ app.get("/friendship-status/:id", (req, res) => {
 });
 // user friendship request
 app.post("/friendship/send", async (req, res) => {
-    const results = await db.makeFriendRequest(req.session.userID, req.body.id);
+    const results = await db.makeFriendRequest(req.session.userId, req.body.id);
     console.log(results.rows);
     res.json({
         friends: false,
@@ -392,8 +392,8 @@ app.post("/friendship/send", async (req, res) => {
         res.json({ success: false });
     });
 });
-app.post("/friendship/accept", async (req, res) => {
-    const results = await db.acceptFriendReq(req.session.userID, req.body.id);
+app.post("/friendship/accept/", async (req, res) => {
+    const results = await db.acceptFriendReq(req.session.userId, req.body.id);
     console.log(results.rows);
     res.json({
         friends: true,
@@ -405,7 +405,7 @@ app.post("/friendship/accept", async (req, res) => {
 });
 
 app.post("/friendship/end", async (req, res) => {
-    const results = db.unfriend(req.session.userID, req.body.id);
+    const results = await db.unfriend(req.session.userId, req.body.id);
     console.log(results.rows);
     res.json({
         friends: false,
@@ -413,6 +413,19 @@ app.post("/friendship/end", async (req, res) => {
         button: "Send",
     }).catch((err) => {
         console.log("error in friendship end", err);
+        res.json({ success: false });
+    });
+});
+
+app.get("/friends-wannabes", async (req, res) => {
+    console.log("this is the friends wannabes route:");
+    const results = await db.friendsWannabesList(req.session.userId);
+    console.log(results.rows);
+    res.json({
+        rows: results.rows,
+        success: true,
+    }).catch((err) => {
+        console.log("error in friends wannabes", err);
         res.json({ success: false });
     });
 });

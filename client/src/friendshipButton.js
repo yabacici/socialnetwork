@@ -48,6 +48,8 @@ export default function FriendshipButton(props) {
             const status = await axios.post("/friendship/end", {
                 id: props.id,
             });
+            console.log("status", status);
+
             setButtonText(status.data.button);
         } else if (buttonText === "Accept Friendship Request") {
             const status = await axios.post("/friendship/accept", {
