@@ -387,21 +387,24 @@ app.post("/friendship/send", async (req, res) => {
     res.json({
         friends: false,
         button: "Cancel Friend Request",
-    }).catch((err) => {
-        console.log("error in friendship send", err);
-        res.json({ success: false });
     });
+    // .catch((err) => {
+    //     console.log("error in friendship send", err);
+    //     res.json({ success: false });
+    // });
 });
+// USE TRY AND CATCH
 app.post("/friendship/accept/", async (req, res) => {
     const results = await db.acceptFriendReq(req.session.userId, req.body.id);
     console.log(results.rows);
     res.json({
         friends: true,
         button: "End",
-    }).catch((err) => {
-        console.log("error in friendship accept", err);
-        res.json({ success: false });
     });
+    // .catch((err) => {
+    //     console.log("error in friendship accept", err);
+    //     res.json({ success: false });
+    // });
 });
 
 app.post("/friendship/end", async (req, res) => {
@@ -411,10 +414,11 @@ app.post("/friendship/end", async (req, res) => {
         friends: false,
         //Send Friend Request,
         button: "Send",
-    }).catch((err) => {
-        console.log("error in friendship end", err);
-        res.json({ success: false });
     });
+    // .catch((err) => {
+    //     console.log("error in friendship end", err);
+    //     res.json({ success: false });
+    // });
 });
 
 app.get("/friends-wannabes", async (req, res) => {
@@ -424,10 +428,11 @@ app.get("/friends-wannabes", async (req, res) => {
     res.json({
         rows: results.rows,
         success: true,
-    }).catch((err) => {
-        console.log("error in friends wannabes", err);
-        res.json({ success: false });
     });
+    // .catch((err) => {
+    //     console.log("error in friends wannabes", err);
+    //     res.json({ success: false });
+    // });
 });
 
 // use ancher tag href= logout

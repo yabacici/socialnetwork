@@ -136,33 +136,8 @@ export default class App extends Component {
                     />
                     <Route
                         path="/show-friends-wannabes"
-                        render={() => <Friends userId={this.state.id} />}
+                        render={() => <Friends />}
                     />
-                    {/* <Profile
-                        firstName={this.state.firstName}
-                        lastName={this.state.lastName}
-                        profilePicUrl={this.state.profilePicUrl}
-                        onClick={() => this.toggleUploader()}
-                        bio={this.state.bio}
-                        submitBio={(e) => this.submitBio(e)}
-                    />
-
-                    <div className="editPic">
-                        <button onClick={() => this.toggleUploader()}>
-                            Edit
-                        </button>
-                    </div> */}
-                    {/* <a onClick={() => this.toggleUploader()}>
-                        <img className="camera" src="camera.jpg" />
-                    </a> */}
-                    {/* <button
-                        type="submit"
-                        className="submit-btn"
-                        onClick={() => this.toggleUploader()}
-                    >
-                        <img className="camera" src="camera.jpg" />
-                        Want to change your image?
-                    </button> */}
                 </div>{" "}
             </BrowserRouter>
         );
@@ -195,4 +170,36 @@ export default class App extends Component {
     /* <Route path="user/:id" render={(props)=>(
                     // put OtherProfile in here with key, match, history
                 )}/>  */
+}
+
+{
+    /* <Profile
+                        firstName={this.state.firstName}
+                        lastName={this.state.lastName}
+                        profilePicUrl={this.state.profilePicUrl}
+                        onClick={() => this.toggleUploader()}
+                        bio={this.state.bio}
+                        submitBio={(e) => this.submitBio(e)}
+                    />
+
+                    <div className="editPic">
+                        <button onClick={() => this.toggleUploader()}>
+                            Edit
+                        </button>
+                    </div> */
+}
+{
+    /* <a onClick={() => this.toggleUploader()}>
+                        <img className="camera" src="camera.jpg" />
+                    </a> */
+}
+{
+    /* <button
+                        type="submit"
+                        className="submit-btn"
+                        onClick={() => this.toggleUploader()}
+                    >
+                        <img className="camera" src="camera.jpg" />
+                        Want to change your image?
+                    </button> */
 }

@@ -33,7 +33,7 @@ export default function Friends() {
     console.log("wannabes: ", wannabes);
     console.log("pendingUser: ", pendingUser);
 
-    if (!friends || !wannabes) {
+    if (!friends || !wannabes || !pendingUser) {
         return null;
         // return <div className=""></div>; // possibly add sth here
     }
@@ -43,7 +43,7 @@ export default function Friends() {
             <h1>Hey there!</h1>
             <h2>Look at who your friends are</h2>
             <div className="friends">
-                {!friends && <p>No friends? Time to socialize!</p>}
+                {friends.length === 0 && <p>No friends? Time to socialize!</p>}
                 {friends &&
                     friends.map((friend) => (
                         <div className="accepted-friends" key={friend.id}>
@@ -65,6 +65,7 @@ export default function Friends() {
                     ))}
             </div>
             <h2>Pending requests</h2>
+            {pendingUser.length === 0 && <p>No friends? Time to socialize!</p>}
             {pendingUser.map((friend) => {
                 return (
                     <div className="pending-req" key={friend.id}>
@@ -83,7 +84,7 @@ export default function Friends() {
             })}
             <h2>Wannabes</h2>
             <h2>You are popular! Look at who wants to be your friend</h2>
-            {!wannabes && <p>No Requests? Time to socialize!</p>}
+            {wannabes.length === 0 && <p>No Requests? Time to socialize!</p>}
             <div className="friends">
                 {wannabes &&
                     wannabes.map((friend) => (
@@ -105,7 +106,6 @@ export default function Friends() {
                         </div>
                     ))}
             </div>
-            <h2>Friends</h2>
         </div>
     );
 }

@@ -13,7 +13,7 @@ import axios from "./axios";
 export async function receiveFriendsWannabes() {
     // we can OPTIONALLY "talk" to the server here
     const { data } = await axios.get("/friends-wannabes");
-    console.log("this is the accept friend data:", data);
+    // console.log("this is the accept friend data:", data);
     if (data.success)
         return {
             type: "RECEIVE_FRIENDS_WANNABES",
@@ -24,7 +24,7 @@ export async function receiveFriendsWannabes() {
 export async function acceptFriend(id) {
     // we can OPTIONALLY "talk" to the server here
     const { data } = await axios.post("/friendship/accept", { id });
-    console.log("this is the accept friend data:", data.id);
+    // console.log("this is the accept friend data:", data.id);
     return {
         type: "ACCEPT_FRIENDSHIP",
         id: id,
@@ -33,12 +33,23 @@ export async function acceptFriend(id) {
 
 export async function unfriend(id) {
     // we can OPTIONALLY "talk" to the server here
-    const { data } = await axios.post("/friendship/end", { id });
-    console.log("this is the end friendship data:", data.id);
-    return {
-        type: "END_FRIENDSHIP",
-        id: id,
-    };
+    // const { data } = await axios.post("/friendship/end", { id });
+    // console.log("this is the end friendship data:", data.id);
+    // console.log("data:", data);
+    // return {
+    //     type: "END_FRIENDSHIP",
+    //     id: id,
+    // };
+    try {
+        const { data } = await axios.post("/friendship/end", { id });
+        console.log("data: ", data);
+        return {
+            type: "END_FRIENDSHIP",
+            id: id,
+        };
+    } catch (err) {
+        console.log("err accepting friend: ", err);
+    }
 }
 
 // export async function pending() {

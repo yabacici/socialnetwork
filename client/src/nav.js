@@ -13,7 +13,7 @@ export default function Nav(props) {
 
             <ul className="nav-links">
                 <li>
-                    <a href="/users">Find People</a>
+                    <a href="/find-users">Find People</a>
                 </li>
                 <li>
                     <a href="#">Chat</a>
