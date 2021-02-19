@@ -1,5 +1,12 @@
 const express = require("express");
 const app = express();
+///////////socket io boilerplate /////////
+const server = require("http").Server(app);
+const io = require("socket.io")(server, {
+    allowRequest: (req, callback) =>
+        callback(null, req.headers.referer.startsWith("http://localhost:3000")),
+});
+///////////////////////////////////////////
 const compression = require("compression");
 const path = require("path");
 const cryptoRandomString = require("crypto-random-string");
@@ -450,8 +457,17 @@ app.get("*", function (req, res) {
     }
 });
 
-app.listen(process.env.PORT || 3001, function () {
+server.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening.");
+});
+
+io.on("connection", (socket) => {
+    // console.log(socket);
+    // id prop created there in socket
+    console.log(`Socket with id: ${socket.id} has CONNECTED`);
+    socket.on("disconnect", () => {
+        console.log(`Socket with id: ${socket.id} just DISCONNECTED`);
+    });
 });
 
 //////////WITHOUT ASYNC AWAIT////

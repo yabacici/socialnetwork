@@ -60,7 +60,7 @@ export default class App extends Component {
         // TODO: Updates the "profilePicUrl" in the state
         // TODO: Hides the uploader
         this.setState({
-            profile_pic_url: profilePicUrl,
+            profilePicUrl: profilePicUrl,
             uploaderVisible: false,
         });
     }

@@ -54,9 +54,10 @@ export default function Friends() {
                             <div>
                                 <button
                                     className="btn-friends"
-                                    onClick={() =>
-                                        dispatch(unfriend(friend.id))
-                                    }
+                                    onClick={() => {
+                                        console.log("in unfriend");
+                                        dispatch(unfriend(friend.id));
+                                    }}
                                 >
                                     Unfriend
                                 </button>
@@ -75,7 +76,10 @@ export default function Friends() {
                         </span>
                         <button
                             className="btn-pending"
-                            onClick={() => dispatch(unfriend(friend.id))}
+                            onClick={() => {
+                                console.log("in pendingUser");
+                                dispatch(unfriend(friend.id));
+                            }}
                         >
                             Cancel request
                         </button>

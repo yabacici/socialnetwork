@@ -29,7 +29,7 @@ export default class Uploader extends Component {
             .post("/profile-pic", formData)
             .then((resp) => {
                 // console.log("profile pic !");
-                // console.log("resp.data.rows: ", resp.data.rows);
+                console.log("resp.data.rows: ", resp.data.rows);
                 // this.props.setProfilePicUrl(resp.data.rows);
                 this.props.setProfilePicUrl(resp.data.rows);
             })

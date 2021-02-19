@@ -22,7 +22,7 @@ export function reducer(state = {}, action) {
                 }
             }),
         };
-    } else if (action.type === "UNFRIEND") {
+    } else if (action.type === "END_FRIENDSHIP") {
         state = {
             ...state,
             friendsList: state.friendsList.filter(
