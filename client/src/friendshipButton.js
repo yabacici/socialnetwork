@@ -64,7 +64,9 @@ export default function FriendshipButton(props) {
         //     {buttonText}
         // </div>
         <div>
-            <button onClick={() => submitButton()}>{buttonText}</button>
+            <button className="save-btn" onClick={() => submitButton()}>
+                {buttonText}
+            </button>
         </div>
     );
 }

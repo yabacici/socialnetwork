@@ -17,9 +17,7 @@ export default function Profile(props) {
                 lastName={props.lastName}
                 profilePicUrl={props.profilePicUrl}
             />
-            {/* <button onClick={() => props.toggleUploader()}>
-                New profile picture
-            </button> */}
+
             <h2>
                 Welcome {props.firstName} {props.lastName} !
             </h2>
@@ -29,6 +27,9 @@ export default function Profile(props) {
                 lastName={props.lastName}
                 bio={props.bio}
             />
+            {/* <button onClick={() => props.toggleUploader()}>
+                New profile picture
+            </button> */}
         </div>
     );
 }

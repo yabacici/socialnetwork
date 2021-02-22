@@ -70,7 +70,7 @@ export default class BioEditor extends React.Component {
         if (this.state.editingMode) {
             return (
                 <div className="bio-edit">
-                    <h2>EDIT MODE</h2>
+                    {/* <h2>EDIT MODE</h2> */}
                     <textarea
                         name="bio"
                         onChange={(e) => this.handleChange(e)}

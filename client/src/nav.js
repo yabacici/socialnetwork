@@ -10,7 +10,6 @@ export default function Nav(props) {
             <div className="logo">
                 <h4>Making The Band</h4>
             </div>
-
             <ul className="nav-links">
                 <li>
                     <a href="/find-users">Find People</a>
@@ -19,13 +18,21 @@ export default function Nav(props) {
                     <a href="#">Chat</a>
                 </li>
                 <li>
-                    <a href="/logout">logout</a>
+                    <a href="/friends">Friends</a>
                 </li>
             </ul>
-            <div className="logout-container">
-                <Logout />
+
+            <div className="dropdown">
                 <ProfilePic {...props} />{" "}
+                {/* <button class="dropbtn">Dropdown</button> */}
+                <div className="dropdown-content">
+                    <a href="#">upload profile pic</a>
+                    <a href="/logout">logout</a>
+                </div>
             </div>
+            {/* <div className="dopdown">
+                <ProfilePic {...props} />{" "}
+            </div> */}
         </nav>
     );
 }

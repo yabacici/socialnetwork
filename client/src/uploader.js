@@ -41,15 +41,15 @@ export default class Uploader extends Component {
             });
     }
 
-    delete(e) {
-        e.preventDefault();
-        console.log("delete button");
-        const pic = "default.jpg";
-        axios.post("/delete-profile-pic", pic).then((resp) => {
-            console.log(resp);
-            this.props.setProfilePicUrl("default.jpg");
-        });
-    }
+    // delete(e) {
+    //     e.preventDefault();
+    //     console.log("delete button");
+    //     const pic = "default.jpg";
+    //     axios.post("/delete-profile-pic", pic).then((resp) => {
+    //         console.log(resp);
+    //         this.props.setProfilePicUrl("default.jpg");
+    //     });
+    // }
 
     render() {
         return (
@@ -66,9 +66,9 @@ export default class Uploader extends Component {
                     className="submit-btn"
                     onClick={(e) => this.submit(e)}
                 >
-                    Upload
+                    UPLOAD YOUR NEW LOOK HERE
                 </button>
-                <div className="delete-btn">
+                {/* <div className="delete-btn">
                     <button
                         type="submit"
                         className="submit-btn"
@@ -76,7 +76,7 @@ export default class Uploader extends Component {
                     >
                         Delete
                     </button>
-                </div>
+                </div> */}
             </div>
         );
     }

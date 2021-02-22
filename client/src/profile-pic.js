@@ -21,7 +21,7 @@ export default function ProfilePic({
             />
             <div className="profile-name">
                 {/* <label>{firstName + " " + lastName}</label> */}
-                <label>{`${firstName} ${lastName}`}</label>
+                <p>{`${firstName} ${lastName}`}</p>
             </div>
         </div>
     );

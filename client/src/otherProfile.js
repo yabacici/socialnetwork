@@ -56,25 +56,25 @@ export default class OtherProfile extends Component {
     render() {
         if (this.state.id) {
             return (
-                <div className="profile-box">
+                <div className="card">
                     <img
-                        className="profile-pic"
+                        // className="card-container"
                         src={this.state.profilePicUrl || "/avatar.png"}
                         alt={`${this.state.firstName} ${this.state.lastName}`}
                     />
-                    <h3>
+                    <h2>
                         {this.state.firstName} {this.state.lastName}
-                    </h3>
+                    </h2>
 
                     <p className="bio-text">{this.state.bio}</p>
-                    <FriendshipButton id={this.state.id} />
+                    <FriendshipButton className="save-btn" id={this.state.id} />
                 </div>
             );
         }
         return (
             <div className="no-user-container">
                 {this.state.error && (
-                    <p className="error-msg">this user does not exist!</p>
+                    <p className="error-message">this user does not exist!</p>
                 )}
 
                 <Link to="/">
