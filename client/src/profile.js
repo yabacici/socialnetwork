@@ -9,8 +9,10 @@ import BioEditor from "./bio-editor";
 export default function Profile(props) {
     console.log(" props profile: ", props);
     return (
-        <div className="border-green">
+        <div className="card">
             <ProfilePic
+                className="card-container"
+                style="width:300px;height:300px"
                 firstName={props.firstName}
                 lastName={props.lastName}
                 profilePicUrl={props.profilePicUrl}
@@ -19,8 +21,9 @@ export default function Profile(props) {
                 New profile picture
             </button> */}
             <h2>
-                Hello {props.firstName} {props.lastName},
+                Welcome back {props.firstName} {props.lastName} !
             </h2>
+
             <BioEditor
                 firstName={props.firstName}
                 lastName={props.lastName}

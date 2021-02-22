@@ -69,8 +69,8 @@ export default class BioEditor extends React.Component {
         console.log("this.props in BioEditor", this.props);
         if (this.state.editingMode) {
             return (
-                <div>
-                    <h1>EDIT MODE</h1>
+                <div className="bio-edit">
+                    <h2>EDIT MODE</h2>
                     <textarea
                         name="bio"
                         onChange={(e) => this.handleChange(e)}
@@ -81,7 +81,13 @@ export default class BioEditor extends React.Component {
                         }
                         // defaultValue="Don't be shy, tell us more about yourself"
                     />
-                    <button onClick={(e) => this.submitBio(e)}>save</button>
+
+                    <button
+                        className="save-btn"
+                        onClick={(e) => this.submitBio(e)}
+                    >
+                        save
+                    </button>
                 </div>
             );
         }
@@ -89,7 +95,8 @@ export default class BioEditor extends React.Component {
             <div className="bio-container">
                 <p className="bio-text">{this.state.bio}</p>
                 <button
-                    className="edit-click"
+                    className="save-btn"
+                    // className="edit-click"
                     onClick={() => this.toggleEditingMode()}
                 >
                     {this.state.bio ? "Edit Bio" : "Add Bio"}

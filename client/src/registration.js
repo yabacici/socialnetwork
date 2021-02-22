@@ -93,7 +93,7 @@ export default class Registration extends React.Component {
                                 className="toggle-btn"
                                 onClick={() => this.handleClick()}
                             >
-                                login
+                                LOGIN
                             </button> */}
                         </div>
                         <div id="login" className="input-group">

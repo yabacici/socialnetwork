@@ -55,7 +55,7 @@ export default function FindPeople() {
     // }
 
     return (
-        <div>
+        <div className="container">
             <h1>Search more people</h1>{" "}
             {users &&
                 users.map((user) => {
@@ -73,12 +73,20 @@ export default function FindPeople() {
                         </Link>
                     );
                 })}
-            <input
+            {/* <input
                 name="users"
                 type="text"
                 className="search-input"
                 placeholder="find people"
+               
+                autoComplete="off"
+            /> */}
+            <input
+                className="search-input"
                 onChange={(e) => setUserInput(e.target.value)}
+                name="users"
+                type="text"
+                placeholder="find people"
                 autoComplete="off"
             />
         </div>

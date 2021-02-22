@@ -64,12 +64,12 @@ export default class Login extends React.Component {
                                 LOG IN
                             </button>
                             {/* <button
-                            type="button"
-                            className="toggle-btn"
-                            onClick={() => this.handleClick()}
-                        >
-                            register
-                        </button> */}
+                                type="button"
+                                className="toggle-btn"
+                                onClick={() => this.handleClick()}
+                            >
+                                register
+                            </button> */}
                         </div>
                         <div id="login" className="input-group">
                             {this.state.error && (

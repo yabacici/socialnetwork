@@ -6,8 +6,8 @@ export default function Nav(props) {
     console.log("props: ", props);
     return (
         <nav>
+            <Logo />
             <div className="logo">
-                <Logo />
                 <h4>Making The Band</h4>
             </div>
 
@@ -18,7 +18,6 @@ export default function Nav(props) {
                 <li>
                     <a href="#">Chat</a>
                 </li>
-
                 <li>
                     <a href="/logout">logout</a>
                 </li>
