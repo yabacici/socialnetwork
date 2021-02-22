@@ -21,7 +21,7 @@ export default function Profile(props) {
                 New profile picture
             </button> */}
             <h2>
-                Welcome back {props.firstName} {props.lastName} !
+                Welcome {props.firstName} {props.lastName} !
             </h2>
 
             <BioEditor

@@ -45,18 +45,12 @@ export default function FindPeople() {
         }
     }, [userInput]);
 
-    //     return (
-    //         // WORK ON THIS PART
-    //         <div>
-    //             <h1>this is the list of {users}</h1>
-    //             <input name="users" type="text" onChange={handleChange} />{" "}
-    //         </div>
-    //     );
-    // }
-
     return (
-        <div className="container">
-            <h1>Search more people</h1>{" "}
+        <div className="searchppl-container">
+            {/* <div className="text-findpeople">
+                <h3>Look, they just joined your network</h3>
+            </div> */}
+
             {users &&
                 users.map((user) => {
                     return (
@@ -66,27 +60,21 @@ export default function FindPeople() {
                             className="user-search"
                         >
                             <img
-                                src={user.profile_pic_url || "/avatar.png"}
+                                className="column"
+                                src={user.profile_pic_url || "avatar.png"}
                                 alt={`${user.first} ${user.last}`}
                             />
-                            <p>{`${user.first} ${user.last}`}</p>
+                            <p className="p-column">{`${user.first} ${user.last}`}</p>
                         </Link>
                     );
                 })}
-            {/* <input
-                name="users"
-                type="text"
-                className="search-input"
-                placeholder="find people"
-               
-                autoComplete="off"
-            /> */}
+
             <input
-                className="search-input"
-                onChange={(e) => setUserInput(e.target.value)}
                 name="users"
                 type="text"
+                className="search-input"
                 placeholder="find people"
+                onChange={(e) => setUserInput(e.target.value)}
                 autoComplete="off"
             />
         </div>

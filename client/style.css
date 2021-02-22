@@ -1,6 +1,7 @@
 body {
     /* background-color: rgb(227, 196, 237); */
     background-color: black;
+    color: white;
 }
 /* 
 .newClass {
@@ -21,6 +22,7 @@ body {
     position: absolute;
     width: 200px;
     transition: 0.5s;
+    color: black;
 }
 .input-field {
     width: 100%;
@@ -107,6 +109,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     width: 100%;
+    /* color: black; */
 }
 /* .border-green {
     margin: auto;
@@ -239,6 +242,7 @@ textarea i {
     /* border: solid 2px violet; */
     background: white;
     border-radius: 10px;
+    color: black;
 }
 
 .card:hover {
@@ -317,4 +321,101 @@ img {
 h1 {
     align-items: center;
     color: white;
+}
+
+.profile-name {
+    color: black;
+}
+
+.bio-text {
+    color: black;
+}
+
+.show-all {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-gap: 1rem;
+}
+
+.friends-container {
+    background-color: goldenrod;
+    color: white;
+    padding: 1rem;
+    height: 4rem;
+}
+.pending-container {
+    background-color: goldenrod;
+    color: white;
+    padding: 1rem;
+    height: 4rem;
+}
+
+.wannabes-container {
+    background-color: goldenrod;
+    color: white;
+    padding: 1rem;
+    height: 4rem;
+}
+
+/* Screen larger than 600px? 2 column */
+@media (min-width: 600px) {
+    .show-all {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Screen larger than 900px? 3 columns */
+@media (min-width: 900px) {
+    .cardzz {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.searchppl-container {
+    /* display: flex; */
+    display: grid;
+    grid-template-columns: repeat(3, minmax(300px, 1fr));
+    flex-direction: rows;
+    align-items: center;
+
+    text-align: center;
+    /* background: whitesmoke; */
+    /* box-shadow: 5px 10px 25px rgb(220, 173, 234); */
+    border-radius: 10px;
+    /* hover effect see card:hover */
+    /* transition: 0.8;
+    cursor: pointer; */
+}
+
+.column {
+    /* object-fit: cover; */
+    display: flex;
+    flex-direction: column;
+    /* flex: 33.33%; */
+    padding: 5px;
+    margin: 30px;
+    margin-left: 100px;
+    margin-top: 150px;
+    /* border: solid 1px rgb(220, 173, 234); */
+    border: solid 1px goldenrod;
+}
+.search-input {
+    width: 150px;
+
+    padding: 10px;
+    margin: 10px 0;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0.1);
+    border-radius: 3px;
+}
+/* 
+.text-findpeople {
+    text-align: center;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    font-weight: bold;
+    color: white;
+} */
+
+.p-column {
+    text-align: center;
 }

@@ -46,14 +46,26 @@ const uploader = multer({
     },
 });
 
-app.use(
-    cookieSession({
-        maxAge: 1000 * 6 * 50 * 14,
-        keys: ["AWS_KEY", "AWS_SECRET"],
-        secret: secret,
-        // 2 weeks
-    })
-);
+// app.use(
+//     cookieSessionMiddleware({
+//         maxAge: 1000 * 6 * 50 * 14,
+//         keys: ["AWS_KEY", "AWS_SECRET"],
+//         secret: secret,
+//         // 2 weeks
+//     })
+// );
+
+const cookieSessionMiddleware = cookieSession({
+    maxAge: 1000 * 6 * 50 * 14,
+    keys: ["AWS_KEY", "AWS_SECRET"],
+    secret: secret,
+    // 2 weeks
+});
+
+app.use(cookieSessionMiddleware);
+io.use(function (socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 app.use(csurf());
 
@@ -460,15 +472,31 @@ app.get("*", function (req, res) {
 server.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening.");
 });
+io.on("connection", function (socket) {
+    const userId = socket.request.session.userId;
+    if (userId) {
+        return socket.disconnect(true);
+    }
+    // socket.on("chatMessage", async text => {
+    //     await
+    //     console.log(`Socket with id: ${socket.id} just DISCONNECTED`);
+    // });
 
-io.on("connection", (socket) => {
-    // console.log(socket);
-    // id prop created there in socket
-    console.log(`Socket with id: ${socket.id} has CONNECTED`);
-    socket.on("disconnect", () => {
-        console.log(`Socket with id: ${socket.id} just DISCONNECTED`);
-    });
+    /* ... */
 });
+
+// io.on("connection", (socket) => {
+//     // console.log(socket);
+//     // id prop created there in socket
+//     console.log(`Socket with id: ${socket.id} has CONNECTED`);
+//     const { userId } = socket.request.session;
+//     if (userId) {
+//         return socket.disconnect(true);
+//     }
+//     // socket.on("chatMessage", async text => {
+//     //     console.log(`Socket with id: ${socket.id} just DISCONNECTED`);
+//     // });
+// });
 
 //////////WITHOUT ASYNC AWAIT////
 
