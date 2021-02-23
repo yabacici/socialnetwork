@@ -1,6 +1,7 @@
 // pres component so func component
 import ProfilePic from "./profile-pic";
 import BioEditor from "./bio-editor";
+import DeleteProfilePic from "./delete-profile-pic";
 // DIRECT CHILD of APP component
 // render the user's firstname, lastname, and the <ProfilePic /> and <BioEditor /> components
 // ProfilePic is the EXACT same component you have used in App
@@ -17,7 +18,11 @@ export default function Profile(props) {
                 lastName={props.lastName}
                 profilePicUrl={props.profilePicUrl}
             />
-
+            <DeleteProfilePic
+                profilePicUrl={props.profilePicUrl}
+                deletePic={props.deletePic}
+                id={props.id}
+            />
             <h2>
                 Welcome {props.firstName} {props.lastName} !
             </h2>

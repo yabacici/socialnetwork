@@ -1,7 +1,7 @@
 import axios from "./axios";
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { chatMessage, chatMessages } from "./actions";
+import { chatMessage, chatMessages, newMessage, deleteMsg } from "./actions";
 import { socket } from "./socket";
 // Must import the socket object from socket.js so that `emit` can be called on it
 
@@ -38,10 +38,18 @@ export default function Chat() {
         textRef.current.value = "";
     };
 
+    const deleteMsg = (e) => {
+        console.log("clicked delete");
+        console.log("message for chat delete : ", e.target.id);
+        socket.emit("delete", {
+            messageId: e.target.id,
+        });
+    };
+
     return (
-        <div className="chat">
-            <h2>Chat</h2>
-            <div className="previous-messages" ref={scrollRef}>
+        <div className="chat-container">
+            <h2>Chat with your peers</h2>
+            <div className="old-messages darker" ref={scrollRef}>
                 {allChatMessages &&
                     // text is a message
                     allChatMessages.map((text) => (
@@ -61,22 +69,38 @@ export default function Chat() {
                                 </p>
                             </div>
                             <p>{text.message}</p>
+                            {/* <button onClick={deleteMsg} className="message">
+                                {text.message}
+                            </button> */}
+                            {/* <button
+                                className="message"
+                                onClick={() => {
+                                    {
+                                        deleteMsg;
+                                    }
+                                }}
+                            >
+                                delete
+                            </button> */}
+                            <div className="delete">
+                                <button onClick={(e) => deleteMsg(e)}>
+                                    delete
+                                </button>
+                            </div>
                         </div>
                     ))}
             </div>
-            {/* // Whatever UI you choose for sending the message, what your code */}
+
             {/* must do is emit a socket event with the current value of the */}
             {/* textarea in the payload */}
             <textarea
-                name="message"
+                name="msg-input"
                 ref={textRef}
-                placeholder="Type your message"
+                placeholder="Type here"
                 onKeyDown={(e) => enterMsg(e)}
                 onChange={(e) => handleChange(e)}
             ></textarea>
-            <button className="submit-btn" onClick={(e) => sendMsg(e)}>
-                Send
-            </button>
+            <button onClick={(e) => sendMsg(e)}>Send</button>
         </div>
     );
 }

@@ -42,8 +42,8 @@ export default function Friends() {
     return (
         <div className="show-all">
             <div className="friends-container">
-                <h1>Hey there!</h1>
-                <h2>Look at who your friends are</h2>
+                {/* <h1>Hey there!</h1> */}
+                <h2>Friends</h2>
                 <div className="friends">
                     {friends.length === 0 && (
                         <p>No friends? Time to socialize!</p>
@@ -127,7 +127,7 @@ export default function Friends() {
             </div> */}
             <div className="wannabes-container">
                 <h2>Wannabes</h2>
-                <h2>You are popular! Look at who wants to be your friend</h2>
+                {/* <h2>You are popular! Look at who wants to be your friend</h2> */}
                 {wannabes.length === 0 && (
                     <p>No Requests? Time to socialize!</p>
                 )}

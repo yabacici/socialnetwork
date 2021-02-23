@@ -345,23 +345,36 @@ h1 {
 }
 
 .friends-container {
-    background-color: goldenrod;
+    background-color: violet;
+    text-align: center;
+    margin-top: 10px;
     color: white;
     padding: 1rem;
     height: 4rem;
 }
-.pending-container {
+/* .pending-container {
     background-color: goldenrod;
+    color: white;
+    padding: 1rem;
+    height: 4rem;
+} */
+
+.wannabes-container {
+    /* background-color: goldenrod; */
+    text-align: center;
+    background-color: violet;
+    margin-top: 10px;
+    margin-top: 10px;
     color: white;
     padding: 1rem;
     height: 4rem;
 }
 
-.wannabes-container {
-    background-color: goldenrod;
-    color: white;
-    padding: 1rem;
-    height: 4rem;
+.accepted-friends img {
+    /* width: 15%; */
+    margin-top: 10px;
+    margin-right: 10px;
+    border-radius: 50%;
 }
 
 /* Screen larger than 600px? 2 column */
@@ -462,4 +475,67 @@ h1 {
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
+}
+
+/* Chat containers */
+.chat-container {
+    /* border: 2px solid #dedede; */
+    /* background-color: #f1f1f1; */
+    border: 2px solid red;
+    /* background-color: black; */
+    border-radius: 20px;
+    padding: 10px;
+    margin: 10px 0;
+}
+/* Chat containers */
+.chatter-container {
+    /* border: 2px solid #dedede; */
+    /* background-color: #f1f1f1; */
+    border: 2px solid red;
+    background-color: black;
+    border-radius: 20px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+/* Darker chat container */
+.chatter-container {
+    border-color: blue;
+    /* background-color: white; */
+    background-color: black;
+}
+
+/* Clear floats */
+.chatter-container :after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Style images */
+.chatter-container img {
+    float: left;
+    /* max-width: 100px; */
+    width: 15%;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+/* Style the right image */
+.chatter-container img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right: 0;
+}
+
+/* Style time text */
+.time-right {
+    float: right;
+    color: #aaa;
+}
+
+/* Style time text */
+.time-left {
+    float: left;
+    color: #999;
 }

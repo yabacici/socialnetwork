@@ -121,7 +121,7 @@ module.exports.friendsWannabesList = (userId) => {
     return db.query(q, params);
 };
 
-module.exports.deleteProfilePic = (userId) => {
+module.exports.delProfilePic = (userId) => {
     const q = `UPDATE users
     SET profile_pic_url = null
     WHERE id = $1 returning profile_pic_url, id`;
@@ -154,4 +154,10 @@ module.exports.getLastMessage = () => {
     ORDER BY message.id DESC LIMIT 1`;
 
     return db.query(q);
+};
+
+module.exports.deleteChatMessage = (messageId) => {
+    const q = `DELETE FROM message WHERE id = $1 RETURNING *`;
+    const params = [messageId];
+    return db.query(q, params);
 };

@@ -15,7 +15,7 @@ export default function Nav(props) {
                     <a href="/find-users">Find People</a>
                 </li>
                 <li>
-                    <a href="#">Chat</a>
+                    <a href="/chat">Chat</a>
                 </li>
                 <li>
                     <a href="/friends">Friends</a>

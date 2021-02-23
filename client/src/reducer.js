@@ -48,6 +48,14 @@ export function reducer(state = {}, action) {
             messages: [...state.messages, action.newMessage],
         };
     }
+    if (action.type === "DELETE_MESSAGE") {
+        state = {
+            ...state,
+            messages: state.messages.filter(
+                (message) => message.id != action.messageId
+            ),
+        };
+    }
 
     return state;
 }

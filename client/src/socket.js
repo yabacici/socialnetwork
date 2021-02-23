@@ -1,4 +1,4 @@
-import { chatMessages, chatMessage, newMessage } from "./actions";
+import { chatMessages, chatMessage, newMessage, deleteMsg } from "./actions";
 import { io } from "socket.io-client";
 // The idea is that this file creates the socket connect in a way that ensures there can be only one.
 // It also listens for all the events that are expected to happen
@@ -18,5 +18,8 @@ export const init = (store) => {
         socket.on("newMessage", (lastMessage) =>
             store.dispatch(newMessage(lastMessage))
         );
+        socket.on("deleteMsg", (messageId) => {
+            store.dispatch(deleteMsg(messageId));
+        });
     }
 };

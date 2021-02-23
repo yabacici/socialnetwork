@@ -218,17 +218,19 @@ app.post("/profile-pic", uploader.single("file"), s3.upload, (req, res) => {
     }
 });
 
-app.post("/deleteProfilePicture", async (req, res) => {
-    const userId = req.session.userId;
-    const def = ["default.png"];
-    console.log("id in /delete: ", userId);
-    console.log("/delete here");
-
-    await db.deleteImage(userId, def);
-
-    res.json({
-        sucess: true,
-    });
+app.post("/delete-profile-pic", async (req, res) => {
+    try {
+        const userId = req.session.userId;
+        const def = ["default.jpg"];
+        console.log("id in /delete: ", userId);
+        console.log("/delete here");
+        await db.delProfilePic(userId, def);
+        res.json({
+            sucess: true,
+        });
+    } catch (err) {
+        console.log("err in del profilePic: ", err);
+    }
 });
 
 // create bio column in users db
@@ -508,6 +510,18 @@ io.on("connection", async (socket) => {
     } catch (err) {
         console.log("err in chatMessg", err);
     }
+    // bonus feature
+    socket.on("delete", async (messageId) => {
+        console.log("socket delete");
+        console.log("this is the msg ID: ", messageId);
+        try {
+            const results = await db.deleteChatMessage(messageId);
+            console.log("results: ", results.rows);
+            io.emit("deleteMessage", messageId);
+        } catch (err) {
+            console.log("err in message db: ", err);
+        }
+    });
 });
 
 // io.on("connection", (socket) => {

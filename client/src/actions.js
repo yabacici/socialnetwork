@@ -80,6 +80,12 @@ export function newMessage(newMessage) {
         newMessage,
     };
 }
+export function deleteMsg(messageId) {
+    return {
+        type: "DELETE_MESSAGE",
+        messageId: messageId,
+    };
+}
 
 // export async function pending() {
 //     // we can OPTIONALLY "talk" to the server here

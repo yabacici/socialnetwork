@@ -37,3 +37,4 @@ CREATE TABLE message(
       message VARCHAR NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
+
