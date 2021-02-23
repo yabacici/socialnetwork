@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS
 users;
 DROP TABLE IF EXISTS 
 friendships;
-
+DROP TABLE IF EXISTS message ;
 
 
 
@@ -30,3 +30,10 @@ sender_id INT REFERENCES users(id) NOT NULL,
 recipient_id INT REFERENCES users(id) NOT NULL,
 accepted BOOLEAN DEFAULT false
 );
+
+CREATE TABLE message(
+      id SERIAL PRIMARY KEY,
+      sender_id INT REFERENCES users(id) NOT NULL,
+      message VARCHAR NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );

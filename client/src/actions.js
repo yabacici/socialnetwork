@@ -52,6 +52,35 @@ export async function unfriend(id) {
     // }
 }
 
+// * An action for when individual new messages are received
+export function chatMessage(textMessage) {
+    // socket.emit("chatMessage", text);
+
+    return {
+        type: "SEND_MESSAGE",
+        textMessage,
+    };
+}
+// * An action for when the 10 most recent messages are received
+export function chatMessages(messages) {
+    // socket.emit("chatMessages", messages);
+    console.log("messages: ", messages);
+
+    return {
+        type: "DISPLAY_MESSAGES",
+        messages,
+    };
+}
+
+export function newMessage(newMessage) {
+    console.log("messages: ", newMessage);
+
+    return {
+        type: "DISPLAY_NEW_MESSAGE",
+        newMessage,
+    };
+}
+
 // export async function pending() {
 //     // we can OPTIONALLY "talk" to the server here
 //     const { data } = await axios.post("/friendship/wannabes");

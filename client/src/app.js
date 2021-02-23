@@ -9,6 +9,7 @@ import Friends from "./friends";
 import { BrowserRouter, Route } from "react-router-dom";
 import FindPeople from "./findPeople";
 import Nav from "./nav";
+import Chat from "./chat";
 // import { Link } from "react-router-dom";
 
 export default class App extends Component {
@@ -65,6 +66,12 @@ export default class App extends Component {
         });
     }
 
+    deletePic(profilePicUrl) {
+        this.setState({
+            profilePicUrl: profilePicUrl,
+        });
+    }
+
     render() {
         console.log("this.state in app:", this.state);
         if (!this.state.id) {
@@ -92,8 +99,8 @@ export default class App extends Component {
                     />
                     {this.state.uploaderVisible && (
                         <Uploader
-                            firstName={this.state.firstName}
-                            lastName={this.state.lastName}
+                            // firstName={this.state.firstName}
+                            // lastName={this.state.lastName}
                             toggleUploader={this.toggleUploader}
                             setProfilePicUrl={this.setProfilePicUrl}
                         />
@@ -110,6 +117,9 @@ export default class App extends Component {
                                 profilePicUrl={this.state.profilePicUrl}
                                 bio={this.state.bio}
                                 toggleUploader={this.toggleUploader}
+                                deletePic={(profilePicUrl) =>
+                                    this.deletePic(profilePicUrl)
+                                }
                             />
                         )}
                     />
@@ -138,6 +148,7 @@ export default class App extends Component {
                         path="/show-friends-wannabes"
                         render={() => <Friends />}
                     />
+                    <Route path="/chat" component={Chat} />
                 </div>{" "}
             </BrowserRouter>
         );

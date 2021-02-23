@@ -27,6 +27,8 @@ export default function Nav(props) {
                 {/* <button class="dropbtn">Dropdown</button> */}
                 <div className="dropdown-content">
                     <a href="#">upload profile pic</a>
+                    <a href="/login">login</a>
+                    <a href="/">profile</a>
                     <a href="/logout">logout</a>
                 </div>
             </div>

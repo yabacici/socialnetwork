@@ -472,17 +472,41 @@ app.get("*", function (req, res) {
 server.listen(process.env.PORT || 3001, function () {
     console.log("I'm listening.");
 });
-io.on("connection", function (socket) {
-    const userId = socket.request.session.userId;
+io.on("connection", async (socket) => {
+    // Confirm the user is logged in by finding the user's id in socket.request.session.
+    // If the user id is not there, disconnect the socket connection
+    const { userId } = socket.request.session;
     if (userId) {
         return socket.disconnect(true);
     }
-    // socket.on("chatMessage", async text => {
-    //     await
-    //     console.log(`Socket with id: ${socket.id} just DISCONNECTED`);
-    // });
 
-    /* ... */
+    // need db query to get info by userId
+    socket.on("chatMessage", async (textMessage) => {
+        // Start listening for the event that the client will emit to send a chat message.
+        // When this event is received you must:
+        // Insert the new message into the table
+        // Do another query to get the message sender's first, last, and image url by their user id.
+        try {
+            console.log("textMessage: ", textMessage);
+            await db.addMessage(userId, textMessage);
+            const newMessage = await db.getLastMessage();
+            // Emit an event to ALL clients (io.emit) with the new chat message object as the payload
+            io.emit("newMessage", newMessage.rows[0]);
+        } catch (err) {
+            console.log("err in chatMessg", err);
+        }
+    });
+    try {
+        // Emit an event to the client that just connecting
+        // containing the ten most recent messages
+        // Get the ten most recent out of the db.
+        // Use reverse to get them into chronological order if necessary
+        const results = await db.showRecentMessages();
+        //the results are MESSAGES
+        io.emit("chatMessages", results.rows.reverse());
+    } catch (err) {
+        console.log("err in chatMessg", err);
+    }
 });
 
 // io.on("connection", (socket) => {

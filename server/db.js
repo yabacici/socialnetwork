@@ -120,3 +120,38 @@ module.exports.friendsWannabesList = (userId) => {
     const params = [userId];
     return db.query(q, params);
 };
+
+module.exports.deleteProfilePic = (userId) => {
+    const q = `UPDATE users
+    SET profile_pic_url = null
+    WHERE id = $1 returning profile_pic_url, id`;
+    const params = [userId];
+    return db.query(q, params);
+};
+
+//  to get the ten most recent messages
+//  (JOIN the users table to get first, last, image url)
+module.exports.showRecentMessages = () => {
+    const q = `SELECT message.sender_id, message.message, message.created_at, users.first, users.last, users.profile_pic_url, message.id 
+    FROM message
+    JOIN users
+    ON sender_id = users.id
+    ORDER BY message.id DESC LIMIT 10`;
+
+    return db.query(q);
+};
+module.exports.addMessage = (senderId, message) => {
+    const q = `INSERT INTO message (sender_id, message) 
+    VALUES ($1, $2) RETURNING *`;
+    const params = [senderId, message];
+    return db.query(q, params);
+};
+module.exports.getLastMessage = () => {
+    const q = `SELECT message.sender_id, message.message, message.created_at, users.first, users.last, users.profile_pic_url, message.id
+    FROM message
+    JOIN users
+    ON sender_id = users.id
+    ORDER BY message.id DESC LIMIT 1`;
+
+    return db.query(q);
+};

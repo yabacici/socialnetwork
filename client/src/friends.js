@@ -33,7 +33,8 @@ export default function Friends() {
     console.log("wannabes: ", wannabes);
     console.log("pendingUser: ", pendingUser);
 
-    if (!friends || !wannabes || !pendingUser) {
+    // if (!friends || !wannabes || !pendingUser) {
+    if (!friends || !wannabes) {
         return null;
         // return <div className=""></div>; // possibly add sth here
     }
@@ -97,7 +98,7 @@ export default function Friends() {
                     );
                 })}
             </div> */}
-            <div className="pending-container">
+            {/* <div className="pending-container">
                 <h2>Pending requests</h2>
                 <h2>No friends? Time to socialize!</h2>
                 {pendingUser.length === 0 && (
@@ -123,7 +124,7 @@ export default function Friends() {
                             </div>
                         </div>
                     ))}
-            </div>
+            </div> */}
             <div className="wannabes-container">
                 <h2>Wannabes</h2>
                 <h2>You are popular! Look at who wants to be your friend</h2>
