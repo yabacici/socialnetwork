@@ -29,14 +29,13 @@ export default function Chat() {
         e.keyCode === 13 && sendMsg();
     };
 
-    const sendMsg = () => {
+    const sendMsg = (e) => {
         console.log("send mssg clicked");
         console.log("text value ", textRef.current.value);
-
+        e.preventDefault();
         socket.emit("chatMessage", textRef.current.value);
 
         textRef.current.value = "";
-        // scrollToBottom();
     };
 
     return (
@@ -75,7 +74,7 @@ export default function Chat() {
                 placeholder="Type your message"
                 onChange={(e) => handleChange(e)}
             ></textarea>
-            <button className="submit-btn" onClick={() => sendMsg()}>
+            <button className="submit-btn" onClick={(e) => sendMsg(e)}>
                 Send
             </button>
         </div>
