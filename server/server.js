@@ -475,8 +475,9 @@ server.listen(process.env.PORT || 3001, function () {
 io.on("connection", async (socket) => {
     // Confirm the user is logged in by finding the user's id in socket.request.session.
     // If the user id is not there, disconnect the socket connection
+    console.log("helloooo");
     const { userId } = socket.request.session;
-    if (userId) {
+    if (!userId) {
         return socket.disconnect(true);
     }
 

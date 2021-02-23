@@ -11,7 +11,7 @@ export default function Chat() {
 
     //  Component must use `useSelector` to get the chat messages out of Redux.
     //  It needs to map them into elements and render them. CKECK RETURN
-    const allMessages = useSelector((state) => state.messages);
+    const allChatMessages = useSelector((state) => state.messages);
 
     const handleChange = (e) => {
         textRef.current.value = e.target.value;
@@ -42,9 +42,9 @@ export default function Chat() {
         <div className="chat">
             <h2>Chat</h2>
             <div className="previous-messages" ref={scrollRef}>
-                {allMessages &&
+                {allChatMessages &&
                     // text is a message
-                    allMessages.map((text) => (
+                    allChatMessages.map((text) => (
                         <div key={text.id}>
                             <div className="chatter-container">
                                 <img
@@ -70,8 +70,8 @@ export default function Chat() {
             <textarea
                 name="message"
                 ref={textRef}
-                onKeyDown={(e) => enterMsg(e)}
                 placeholder="Type your message"
+                onKeyDown={(e) => enterMsg(e)}
                 onChange={(e) => handleChange(e)}
             ></textarea>
             <button className="submit-btn" onClick={(e) => sendMsg(e)}>
