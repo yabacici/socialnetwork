@@ -3,18 +3,14 @@ body {
     background-color: black;
     background-image: url("spotlight.jpg");
     background-size: cover;
+    font-family: "Roboto", sans-serif;
+    /* border: 5px solid black; */
     color: white;
-    /* font-family: Arial, Helvetica, sans-serif; */
+    min-height: 100vh;
 }
-/* 
-.newClass {
-    color: blue;
-} */
 
 .icon {
     grid-area: auto;
-    /* width: 90px;
-    height: 65px; */
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -37,6 +33,23 @@ body {
     border-bottom: 1px solid #999;
     outline: none;
     background: transparent;
+    /* align-items: center; */
+}
+.input-group {
+    margin-left: 10%;
+    /* margin-bottom: 20%; */
+    align-items: center;
+    text-align: center;
+}
+.reset-text {
+    text-align: center;
+    align-items: center;
+    margin-right: 40%;
+    /* margin: 40%; */
+}
+
+.login-text {
+    font-size: 14px;
 }
 
 .toggle-btn {
@@ -49,16 +62,18 @@ body {
 }
 
 .button-box {
+    left: 10%;
     width: 220px;
     margin: 35px auto;
     position: relative;
-    box-shadow: 0 0 20px 9px #ff61241f;
+    /* box-shadow: 0 0 20px 9px #ff61241f; */
     border-radius: 30px;
 }
 
 .form-box {
     width: 380px;
     height: 480px;
+    /* max-width: 280px; */
     position: relative;
     margin: 6% auto;
     background: #fff;
@@ -69,11 +84,13 @@ body {
 .hero {
     height: 100%;
     width: 100%;
+    min-height: 100vh;
     background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
         url("performance.jpg");
+    border-top: 5px solid black;
     background-position: center;
     background-size: cover;
-    position: absolute;
+    /* position: absolute; */
     opacity: 0.9;
 }
 #btn {
@@ -107,21 +124,6 @@ body {
     left: 450px;
 }
 
-.card-container {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    /* color: black; */
-}
-/* .border-green {
-    margin: auto;
-    margin-top: 30px;
-    text-align: center;
-    width: 50%;
-    border: 3px solid green;
-    padding: 10px;
-} */
 .avatar,
 .camera {
     vertical-align: middle;
@@ -131,7 +133,7 @@ body {
 }
 
 .uploader {
-    border: 5px dashed white;
+    border: 3px dashed white;
     /* width: 250px;
     height: 250px; */
     /* align-items: center; */
@@ -140,6 +142,17 @@ body {
     margin: auto;
     margin-top: 50px;
     text-align: center;
+}
+.upload-btn {
+    background-color: #5d4954;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    margin-bottom: 5px;
 }
 
 /* textarea {
@@ -239,27 +252,32 @@ textarea i {
 
 /* user profile */
 .card {
-    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);s */
-    max-width: 500px;
-    /* max-height: 300px; */
+    max-width: 400px;
     margin: auto;
     margin-top: 200px;
     text-align: center;
     box-shadow: 5px 10px 25px rgb(220, 173, 234);
-    /* border: solid 2px violet; */
     background: white;
     border-radius: 10px;
     color: black;
+    opacity: 0.8;
+    font-family: "Roboto", sans-serif;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);s */
+    /* max-height: 300px; */
 }
 
 .card:hover {
     transform: scale(1.2);
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
 }
-/* .title {
-    color: grey;
-    font-size: 18px;
-} */
+
+.card-container {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    /* color: black; */
+}
 
 .save-btn {
     background: linear-gradient(to right, #ff105f, #ffad86);
@@ -275,27 +293,21 @@ textarea i {
     font-size: 18px;
 }
 
-/* a {
-    text-decoration: none;
-    font-size: 22px;
-    color: black;
-} */
-
 .save-btn:hover,
 a:hover {
     opacity: 0.7;
 }
 
-/* .blinking {
+.blinking {
     text-align: center;
-    animation: blinkingText 1.2s infinite;
+    animation: blinkingText 2s infinite;
 }
 @keyframes blinkingText {
     0% {
-        color: white;
+        color: black;
     }
     49% {
-        color: white;
+        color: black;
     }
     60% {
         color: transparent;
@@ -304,25 +316,14 @@ a:hover {
         color: transparent;
     }
     100% {
-        color: white;
+        color: black;
     }
-} */
+}
 
 img {
     width: 250px;
     height: 250px;
     border-radius: 10px;
-}
-
-.search-input {
-    padding: 10px;
-    margin: 10px 0;
-    border: 2px solid #eee;
-    /* box-shadow: 0 5 20px 5px rgba(0, 0, 0, 0.06); */
-    box-shadow: 5 10 2px 5px rgba(0, 0, 0, 0.06);
-    border-radius: 10px;
-    width: 20%;
-    font: outline;
 }
 
 h1 {
@@ -331,7 +332,7 @@ h1 {
 }
 
 .profile-name {
-    color: black;
+    color: white;
 }
 
 .bio-text {
@@ -346,7 +347,7 @@ h1 {
 }
 
 .friends-container {
-    background-color: violet;
+    background-color: rgb(88, 35, 88);
     text-align: center;
     margin-top: 10px;
     color: white;
@@ -363,7 +364,7 @@ h1 {
 .wannabes-container {
     /* background-color: goldenrod; */
     text-align: center;
-    background-color: violet;
+    background-color: rgb(88, 35, 88);
     margin-top: 10px;
     margin-top: 10px;
     color: white;
@@ -372,8 +373,17 @@ h1 {
 }
 
 .accepted-friends img {
-    /* width: 15%; */
-    margin-top: 10px;
+    width: 20vh;
+    height: 20vh;
+    margin-top: 30px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.wannabes img {
+    width: 20vh;
+    height: 20vh;
+    margin-top: 30px;
     margin-right: 10px;
     border-radius: 50%;
 }
@@ -393,40 +403,50 @@ h1 {
 }
 
 .searchppl-container {
-    /* display: flex; */
     display: grid;
     grid-template-columns: repeat(3, minmax(300px, 1fr));
     flex-direction: rows;
     align-items: center;
-
     text-align: center;
-    /* background: whitesmoke; */
-    /* box-shadow: 5px 10px 25px rgb(220, 173, 234); */
     border-radius: 10px;
+
+    /* box-shadow: 5px 10px 25px rgb(220, 173, 234); */
     /* hover effect see card:hover */
     /* transition: 0.8;
     cursor: pointer; */
 }
 
 .column {
-    /* object-fit: cover; */
     display: flex;
     flex-direction: column;
-    /* flex: 33.33%; */
-    padding: 5px;
     margin: 30px;
     margin-left: 100px;
     margin-top: 150px;
+    border: solid 3px goldenrod;
+    align-items: center;
+    /* flex: 33.33%; */
+    /* padding: 5px; */
     /* border: solid 1px rgb(220, 173, 234); */
-    border: solid 1px goldenrod;
 }
-.search-input {
+/* .search-input {
     width: 150px;
-
     padding: 10px;
     margin: 10px 0;
     box-shadow: 0px 0px 10px rgba(0, 0, 0.1);
     border-radius: 3px;
+} */
+.search-input {
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #eee;
+    /* box-shadow: 0 5 20px 5px rgba(0, 0, 0, 0.06); */
+    /* box-shadow: 5 10 2px 5px rgba(0, 0, 0, 0.06); */
+    border-radius: 10px;
+    width: 20%;
+    font: outline;
+    align-items: center;
+    /* left: 100%; */
+    transform: translateX(525%);
 }
 /* 
 .text-findpeople {
@@ -479,20 +499,34 @@ h1 {
 }
 /* Chat containers */
 .chat-container {
-    /* border: 2px solid #dedede; */
+    max-width: 400px;
+    margin: auto;
+    margin-top: 100px;
+    text-align: center;
+    background-color: white;
+    border-radius: 20px;
+    color: black;
+    opacity: 0.7;
+    /* height: 79vh; */
+
+    /* position: relative;
+    max-width: 400px;
     background-color: #f1f1f1;
-    /* background-image: url("notes.jpg"); */
-    /* border: 2px solid red; */
-    /* background-color: black; */
     border-radius: 20px;
     padding: 10px;
-    margin: 10px 0;
-    height: 35%;
-    width: 35%;
+    margin: 10px;
+    height: 79vh;
     color: black;
-    align-items: center;
-    transform: translateX(85%);
-    opacity: 0.8;
+    width: 50vh;
+    object-fit: cover;
+    transform: translateX(125%);
+    opacity: 0.7;
+    align-items: center; */
+
+    /* background-image: url("notes.jpg"); */
+    border: 5px solid black;
+    /* background-color: black; */
+    /* border: 2px solid #dedede; */
 }
 .chat-container h2 {
     text-align: center;
@@ -546,15 +580,16 @@ h1 {
 
 .chat-box {
     position: relative;
-    text-align: left;
+    /* float: left; */
     width: 70%;
     height: 6vh;
-    left: 16%;
+    left: 25%;
     margin-top: 2px;
     border: 1px solid #ffd700;
-    /* border: 1px solid white; */
     border-radius: 5px;
-    /* min-height: 10em; */
+}
+.chat-box p {
+    text-align: left;
 }
 
 .delete-chat button {
@@ -562,32 +597,49 @@ h1 {
     background-color: #802205;
     border: none;
     color: white;
-    /* padding: 16px 32px; */
     text-align: center;
-    /* font-size: 16px; */
-    /* margin: 4px 2px; */
     opacity: 0.6;
     transition: 0.3s;
     text-decoration: none;
     cursor: pointer;
-    /* border-radius: 20%; */
+    border-radius: 5%;
+    /* padding: 16px 32px; */
+    /* font-size: 16px; */
+    /* margin: 4px 2px; */
 }
 
 .delete-chat button:hover {
     opacity: 1;
 }
 
-.chat-container textarea {
+.delete-profile-pic {
+    background-color: #5d4954;
+    color: white;
+    border: none;
+    padding: 3px 7px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    /* font-size: 16px; */
+    /* margin-bottom: 20px; */
+    /* border-radius: 8%; */
+}
+
+.chat-text-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+.chat-text-area textarea {
     width: 70%;
     height: 6vh;
-    left: 10%;
     margin-top: 2px;
     border: 1px solid #ffd700;
     border-radius: 5px;
 }
 .send-chat {
-    position: relative;
-    right: 40%;
     background-color: #5d4954;
     border: none;
     color: white;
@@ -596,7 +648,57 @@ h1 {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-
+    margin-bottom: 20px;
+    border-radius: 8%;
     /* background: linear-gradient(to right, #ff105f, #ffad86); */
-    /* margin-bottom: 50px; */
 }
+
+.welcome-tag,
+.text-registration {
+    text-align: center;
+    font-family: "Bebas Neue", cursive;
+}
+.btn-wannabes,
+.btn-friends {
+    background-color: #5d4954;
+    border: none;
+    color: white;
+    /* padding: 15px 32px; */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* LOADER */
+.lds-hourglass {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+.lds-hourglass:after {
+    content: " ";
+    display: block;
+    border-radius: 50%;
+    width: 0;
+    height: 0;
+    margin: 8px;
+    box-sizing: border-box;
+    border: 32px solid #fff;
+    border-color: #fff transparent #fff transparent;
+    animation: lds-hourglass 1.2s infinite;
+}
+@keyframes lds-hourglass {
+    0% {
+        transform: rotate(0);
+        animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+    }
+    50% {
+        transform: rotate(900deg);
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    100% {
+        transform: rotate(1800deg);
+    }
+}
+/* END LOADER */

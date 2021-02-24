@@ -17,13 +17,13 @@ export default function Friends() {
             state.friendsList.filter((friend) => friend.accepted == false)
     );
 
-    const pendingUser = useSelector(
-        (state) =>
-            state.friendsList &&
-            state.friendsList.filter(
-                (friend) => !friend.accepted && friend.sender_id == friend.id
-            )
-    );
+    // const pendingUser = useSelector(
+    //     (state) =>
+    //         state.friendsList &&
+    //         state.friendsList.filter(
+    //             (friend) => !friend.accepted && friend.sender_id == friend.id
+    //         )
+    // );
 
     useEffect(() => {
         dispatch(receiveFriendsWannabes());
@@ -31,7 +31,7 @@ export default function Friends() {
 
     console.log("friends: ", friends);
     console.log("wannabes: ", wannabes);
-    console.log("pendingUser: ", pendingUser);
+    // console.log("pendingUser: ", pendingUser);
 
     // if (!friends || !wannabes || !pendingUser) {
     if (!friends || !wannabes) {
@@ -42,7 +42,6 @@ export default function Friends() {
     return (
         <div className="show-all">
             <div className="friends-container">
-                {/* <h1>Hey there!</h1> */}
                 <h2>Friends</h2>
                 <div className="friends">
                     {friends.length === 0 && (
@@ -70,7 +69,39 @@ export default function Friends() {
                         ))}
                 </div>
             </div>
-            {/* <div className="pending-container">
+
+            <div className="wannabes-container">
+                <h2>Wannabes</h2>
+                {/* <h2>You are popular! Look at who wants to be your friend</h2> */}
+                {wannabes.length === 0 && (
+                    <p>No Requests? Time to socialize!</p>
+                )}
+                {wannabes &&
+                    wannabes.map((friend) => (
+                        <div className="wannabes" key={friend.id}>
+                            <img src={friend.profile_pic_url} />
+                            <p>
+                                {friend.first} {friend.last}
+                            </p>
+                            <div>
+                                <button
+                                    className="btn-wannabes"
+                                    onClick={() =>
+                                        dispatch(acceptFriend(friend.id))
+                                    }
+                                >
+                                    Accept
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+            </div>
+        </div>
+    );
+}
+
+{
+    /* <div className="pending-container">
                 <h2>Pending requests</h2>
                 {pendingUser.length === 0 && (
                     <p>No friends? Time to socialize!</p>
@@ -97,8 +128,10 @@ export default function Friends() {
                         </div>
                     );
                 })}
-            </div> */}
-            {/* <div className="pending-container">
+            </div> */
+}
+{
+    /* <div className="pending-container">
                 <h2>Pending requests</h2>
                 <h2>No friends? Time to socialize!</h2>
                 {pendingUser.length === 0 && (
@@ -124,34 +157,5 @@ export default function Friends() {
                             </div>
                         </div>
                     ))}
-            </div> */}
-            <div className="wannabes-container">
-                <h2>Wannabes</h2>
-                {/* <h2>You are popular! Look at who wants to be your friend</h2> */}
-                {wannabes.length === 0 && (
-                    <p>No Requests? Time to socialize!</p>
-                )}
-
-                {wannabes &&
-                    wannabes.map((friend) => (
-                        <div className="wannabes" key={friend.id}>
-                            <img src={friend.profile_pic_url} />
-                            <p>
-                                {friend.first} {friend.last}
-                            </p>
-                            <div>
-                                <button
-                                    className="btn-wannabes"
-                                    onClick={() =>
-                                        dispatch(acceptFriend(friend.id))
-                                    }
-                                >
-                                    Accept
-                                </button>
-                            </div>
-                        </div>
-                    ))}
-            </div>
-        </div>
-    );
+            </div> */
 }

@@ -75,12 +75,13 @@ export default class App extends Component {
     render() {
         console.log("this.state in app:", this.state);
         if (!this.state.id) {
-            return null;
-            // return (
-            //     <div className="spinner-container">
-            //         <p>spinner container</p>
-            //     </div>
-            // );
+            // return null;
+            return (
+                // <div className="spinner-container">
+                //     <p>spinner container</p>
+                // </div>
+                <div className="lds-hourglass"></div>
+            );
         }
 
         return (

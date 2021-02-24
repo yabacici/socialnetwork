@@ -63,10 +63,10 @@ export default class Uploader extends Component {
                 <p>Drag your files here or click in this area.</p>
                 <button
                     type="submit"
-                    className="submit-btn"
+                    className="upload-btn"
                     onClick={(e) => this.submit(e)}
                 >
-                    UPLOAD YOUR NEW LOOK HERE
+                    UPLOAD
                 </button>
                 {/* <div className="delete-btn">
                     <button

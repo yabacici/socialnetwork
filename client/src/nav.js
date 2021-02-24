@@ -8,7 +8,7 @@ export default function Nav(props) {
         <nav>
             <Logo />
             <div className="logo">
-                <h4>Making The Band</h4>
+                <h4>Band Masterpiece</h4>
             </div>
             <ul className="nav-links">
                 <li>

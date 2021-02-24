@@ -98,13 +98,17 @@ export default class Login extends React.Component {
                             >
                                 Sign in
                             </button>
-                            <p>
-                                Click <Link to="/">here</Link> to register
-                            </p>
-                            <p>
-                                Forgot your password? {""}
-                                <Link to="/password/reset/start">reset</Link>
-                            </p>
+                            <div className="login-text">
+                                <p>
+                                    Click <Link to="/">here</Link> to register
+                                </p>
+                                <p>
+                                    Forgot your password? {""}
+                                    <Link to="/password/reset/start">
+                                        reset
+                                    </Link>
+                                </p>
+                            </div>
                             {this.state.error && (
                                 <p>
                                     This email or password does not exist. Try

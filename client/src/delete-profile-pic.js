@@ -18,8 +18,10 @@ export default function DeleteProfilePic(props) {
     };
 
     return (
-        <div className="delete">
-            <button onClick={() => submit()}>delete</button>
+        <div className="delete-profile">
+            <button className="delete-profile-pic" onClick={() => submit()}>
+                delete
+            </button>
         </div>
     );
 }

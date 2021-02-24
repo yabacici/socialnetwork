@@ -4,7 +4,7 @@ import Registration from "./registration";
 import Login from "./login";
 import ResetPassword from "./resetpassword";
 // import Logo from "./logo";
-// import Nav from "./nav";
+import Nav from "./nav";
 
 // "dumb"/"presentational" are alternative names for function components
 export default function Welcome() {
@@ -13,8 +13,11 @@ export default function Welcome() {
             {/* <Nav /> */}
 
             <HashRouter>
-                {/* <h1 >Welcome: find your peers!</h1> */}
                 {/* <span className="blinking">Am I blinking?</span> */}
+                <div className="welcome-tag">
+                    <h1> BAND MASTERPIECE</h1>
+                </div>
+
                 <div>
                     <Route exact path="/" component={Registration} />
                     <Route path="/login" component={Login} />

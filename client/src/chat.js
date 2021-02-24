@@ -67,24 +67,10 @@ export default function Chat() {
                                         .replace("T", " at ")}
                                     :
                                     <div className="chat-box">
-                                        {text.message}
+                                        <p>{text.message}</p>
                                     </div>
                                 </p>
                             </div>
-
-                            {/* <button onClick={deleteMsg} className="message">
-                                {text.message}
-                            </button> */}
-                            {/* <button
-                                className="message"
-                                onClick={() => {
-                                    {
-                                        deleteMsg;
-                                    }
-                                }}
-                            >
-                                delete
-                            </button> */}
                             <div className="delete-chat">
                                 <button onClick={() => deleteMsg(text)}>
                                     delete
@@ -96,16 +82,18 @@ export default function Chat() {
 
             {/* must do is emit a socket event with the current value of the */}
             {/* textarea in the payload */}
-            <textarea
-                name="msg-input"
-                ref={textRef}
-                placeholder="Type here"
-                onKeyDown={(e) => enterMsg(e)}
-                onChange={(e) => handleChange(e)}
-            ></textarea>
-            <button className="send-chat" onClick={(e) => sendMsg(e)}>
-                Send
-            </button>
+            <div className="chat-text-area">
+                <textarea
+                    name="msg-input"
+                    ref={textRef}
+                    placeholder="Type here"
+                    onKeyDown={(e) => enterMsg(e)}
+                    onChange={(e) => handleChange(e)}
+                ></textarea>
+                <button className="send-chat" onClick={(e) => sendMsg(e)}>
+                    Send
+                </button>
+            </div>
         </div>
     );
 }

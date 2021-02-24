@@ -77,14 +77,19 @@ export default class Registration extends React.Component {
         return (
             <>
                 {/* <h1>Registration</h1> */}
+
                 <div className="hero">
+                    <h2 className="text-registration">
+                        Connect with other music lovers : create and exchange
+                        music together
+                    </h2>
                     <div className="form-box">
                         <div className="button-box">
                             <div id="btn"></div>
                             <button
                                 type="button"
                                 className="toggle-btn"
-                                onClick={() => this.handleClick()}
+                                // onClick={() => this.handleClick()}
                             >
                                 REGISTER
                             </button>

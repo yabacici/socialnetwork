@@ -13,7 +13,7 @@ export default function Profile(props) {
         <div className="card">
             <ProfilePic
                 className="card-container"
-                style="width:300px;height:300px"
+                // style="width:300px;height:300px"
                 firstName={props.firstName}
                 lastName={props.lastName}
                 profilePicUrl={props.profilePicUrl}
@@ -24,7 +24,11 @@ export default function Profile(props) {
                 id={props.id}
             />
             <h2>
-                Welcome {props.firstName} {props.lastName} !
+                {/* <span className="blinking">Am I blinking?</span> */}
+                <span className="blinking">
+                    {" "}
+                    Welcome {props.firstName} {props.lastName} !
+                </span>
             </h2>
 
             <BioEditor

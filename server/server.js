@@ -511,6 +511,7 @@ io.on("connection", async (socket) => {
         console.log("err in chatMessg", err);
     }
     // bonus feature
+    // ({ messageId }) means that I am only interested in the property of messageId
     socket.on("delete", async ({ messageId }) => {
         console.log("socket delete");
         console.log("this is the msg ID: ", messageId);

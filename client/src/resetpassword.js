@@ -78,16 +78,25 @@ export default class ResetPassword extends React.Component {
             return (
                 <>
                     <div>
-                        <h1>reset password</h1>
+                        {/* <h1>reset password</h1> */}
                         <div className="hero">
                             <div className="form-box">
                                 <div className="button-box">
                                     <div id="btn"></div>
-                                    <div id="login" className="input-group">
-                                        <p>
-                                            Please enter the email address with
-                                            which you registered
-                                        </p>
+                                    <button
+                                        type="button"
+                                        className="toggle-btn"
+                                    >
+                                        RESET
+                                    </button>
+                                    <div id="reset" className="input-group">
+                                        <div className="reset-text">
+                                            {" "}
+                                            <p>
+                                                Please enter the email address
+                                                with which you registered.
+                                            </p>{" "}
+                                        </div>
                                         <input
                                             className="input-field"
                                             onChange={(e) =>
@@ -122,9 +131,12 @@ export default class ResetPassword extends React.Component {
                                 <div className="button-box">
                                     <div id="btn"></div>
                                     <div id="login" className="input-group">
-                                        <p>
-                                            Please enter the code you received
-                                        </p>
+                                        <div className="code">
+                                            <p>
+                                                Please enter the code you
+                                                received
+                                            </p>
+                                        </div>
                                         <input
                                             className="input-field"
                                             onChange={(e) =>
@@ -134,6 +146,7 @@ export default class ResetPassword extends React.Component {
                                             type="text"
                                             placeholder="code"
                                         />
+                                        <div className="code"></div>
                                         <p>Please enter a new password</p>
                                         <input
                                             className="input-field"

@@ -58,7 +58,7 @@ export default class OtherProfile extends Component {
             return (
                 <div className="card">
                     <img
-                        // className="card-container"
+                        className="card-other-profile"
                         src={this.state.profilePicUrl || "/avatar.png"}
                         alt={`${this.state.firstName} ${this.state.lastName}`}
                     />
