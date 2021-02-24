@@ -511,13 +511,13 @@ io.on("connection", async (socket) => {
         console.log("err in chatMessg", err);
     }
     // bonus feature
-    socket.on("delete", async (messageId) => {
+    socket.on("delete", async ({ messageId }) => {
         console.log("socket delete");
         console.log("this is the msg ID: ", messageId);
         try {
             const results = await db.deleteChatMessage(messageId);
             console.log("results: ", results.rows);
-            io.emit("deleteMessage", messageId);
+            io.emit("deleteMsg", messageId);
         } catch (err) {
             console.log("err in message db: ", err);
         }

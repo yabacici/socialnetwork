@@ -38,11 +38,11 @@ export default function Chat() {
         textRef.current.value = "";
     };
 
-    const deleteMsg = (e) => {
+    const deleteMsg = (text) => {
         console.log("clicked delete");
-        console.log("message for chat delete : ", e.target.id);
+        console.log("message for chat delete : ", text.id);
         socket.emit("delete", {
-            messageId: e.target.id,
+            messageId: text.id,
         });
     };
 
@@ -66,9 +66,12 @@ export default function Chat() {
                                         .slice(0, 16)
                                         .replace("T", " at ")}
                                     :
+                                    <div className="chat-box">
+                                        {text.message}
+                                    </div>
                                 </p>
                             </div>
-                            <p>{text.message}</p>
+
                             {/* <button onClick={deleteMsg} className="message">
                                 {text.message}
                             </button> */}
@@ -82,8 +85,8 @@ export default function Chat() {
                             >
                                 delete
                             </button> */}
-                            <div className="delete">
-                                <button onClick={(e) => deleteMsg(e)}>
+                            <div className="delete-chat">
+                                <button onClick={() => deleteMsg(text)}>
                                     delete
                                 </button>
                             </div>
@@ -100,7 +103,9 @@ export default function Chat() {
                 onKeyDown={(e) => enterMsg(e)}
                 onChange={(e) => handleChange(e)}
             ></textarea>
-            <button onClick={(e) => sendMsg(e)}>Send</button>
+            <button className="send-chat" onClick={(e) => sendMsg(e)}>
+                Send
+            </button>
         </div>
     );
 }
