@@ -19,6 +19,7 @@ export default function ProfilePic({
                 src={profilePicUrl || "default.jpg"}
                 alt={`${firstName} ${lastName}`}
             />
+
             <div className="profile-name">
                 {/* <label>{firstName + " " + lastName}</label> */}
                 <p>{`${firstName} ${lastName}`}</p>

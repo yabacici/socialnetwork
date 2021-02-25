@@ -8,7 +8,7 @@ export default function Nav(props) {
         <nav>
             <Logo />
             <div className="logo">
-                <h4>Band Masterpiece</h4>
+                <h4>Acoustic Masterpiece</h4>
             </div>
             <ul className="nav-links">
                 <li>
@@ -29,6 +29,7 @@ export default function Nav(props) {
                     <a href="#">upload profile pic</a>
                     <a href="/login">login</a>
                     <a href="/">profile</a>
+                    <a href="/delete-profile-pic"> delete profile pic</a>
                     <a href="/logout">logout</a>
                 </div>
             </div>

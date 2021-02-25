@@ -2,6 +2,7 @@
 import ProfilePic from "./profile-pic";
 import BioEditor from "./bio-editor";
 import DeleteProfilePic from "./delete-profile-pic";
+import Music from "./music";
 // DIRECT CHILD of APP component
 // render the user's firstname, lastname, and the <ProfilePic /> and <BioEditor /> components
 // ProfilePic is the EXACT same component you have used in App
@@ -30,6 +31,8 @@ export default function Profile(props) {
                     Welcome {props.firstName} {props.lastName} !
                 </span>
             </h2>
+
+            <Music />
 
             <BioEditor
                 firstName={props.firstName}

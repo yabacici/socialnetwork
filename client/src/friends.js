@@ -17,13 +17,13 @@ export default function Friends() {
             state.friendsList.filter((friend) => friend.accepted == false)
     );
 
-    // const pendingUser = useSelector(
-    //     (state) =>
-    //         state.friendsList &&
-    //         state.friendsList.filter(
-    //             (friend) => !friend.accepted && friend.sender_id == friend.id
-    //         )
-    // );
+    const pendingUser = useSelector(
+        (state) =>
+            state.friendsList &&
+            state.friendsList.filter(
+                (friend) => !friend.accepted && friend.sender_id == friend.id
+            )
+    );
 
     useEffect(() => {
         dispatch(receiveFriendsWannabes());
@@ -31,10 +31,10 @@ export default function Friends() {
 
     console.log("friends: ", friends);
     console.log("wannabes: ", wannabes);
-    // console.log("pendingUser: ", pendingUser);
+    console.log("pendingUser: ", pendingUser);
 
-    // if (!friends || !wannabes || !pendingUser) {
-    if (!friends || !wannabes) {
+    if (!friends || !wannabes || !pendingUser) {
+        // if (!friends || !wannabes) {
         return null;
         // return <div className=""></div>; // possibly add sth here
     }
@@ -69,7 +69,6 @@ export default function Friends() {
                         ))}
                 </div>
             </div>
-
             <div className="wannabes-container">
                 <h2>Wannabes</h2>
                 {/* <h2>You are popular! Look at who wants to be your friend</h2> */}
@@ -91,6 +90,32 @@ export default function Friends() {
                                     }
                                 >
                                     Accept
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+            </div>
+            <div className="pending-container">
+                <h2>Pending requests</h2>
+                {pendingUser.length === 0 && (
+                    <p>No request yet? Time to socialize!</p>
+                )}
+
+                {pendingUser &&
+                    pendingUser.map((friend) => (
+                        <div className="pending-user" key={friend.id}>
+                            <img src={friend.profile_pic_url} />
+                            <p>
+                                {friend.first} {friend.last}
+                            </p>
+                            <div>
+                                <button
+                                    className="btn-pending"
+                                    onClick={() =>
+                                        dispatch(acceptFriend(friend.id))
+                                    }
+                                >
+                                    Cancel request
                                 </button>
                             </div>
                         </div>

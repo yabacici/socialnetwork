@@ -86,12 +86,3 @@ export function deleteMsg(messageId) {
         messageId: messageId,
     };
 }
-
-// export async function pending() {
-//     // we can OPTIONALLY "talk" to the server here
-//     const { data } = await axios.post("/friendship/wannabes");
-//     return {
-//         type: "RECIEVE_LIST",
-//         data: data.users.id,
-//     };
-// }

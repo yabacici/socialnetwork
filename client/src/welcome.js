@@ -15,7 +15,7 @@ export default function Welcome() {
             <HashRouter>
                 {/* <span className="blinking">Am I blinking?</span> */}
                 <div className="welcome-tag">
-                    <h1> BAND MASTERPIECE</h1>
+                    <h1> ACOUSTIC MASTERPIECE</h1>
                 </div>
 
                 <div>

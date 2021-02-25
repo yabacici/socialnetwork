@@ -346,30 +346,15 @@ h1 {
     grid-gap: 1rem;
 }
 
-.friends-container {
+.friends-container,
+.wannabes-container,
+.pending-container {
     background-color: rgb(88, 35, 88);
     text-align: center;
-    margin-top: 10px;
+    margin-top: 20px;
     color: white;
     padding: 1rem;
-    height: 4rem;
-}
-/* .pending-container {
-    background-color: goldenrod;
-    color: white;
-    padding: 1rem;
-    height: 4rem;
-} */
-
-.wannabes-container {
-    /* background-color: goldenrod; */
-    text-align: center;
-    background-color: rgb(88, 35, 88);
-    margin-top: 10px;
-    margin-top: 10px;
-    color: white;
-    padding: 1rem;
-    height: 4rem;
+    height: 5rem;
 }
 
 .accepted-friends img {
@@ -380,27 +365,39 @@ h1 {
     border-radius: 50%;
 }
 
-.wannabes img {
+.wannabes img,
+.pending-user img {
     width: 20vh;
     height: 20vh;
     margin-top: 30px;
     margin-right: 10px;
     border-radius: 50%;
 }
+.btn-wannabes,
+.btn-friends,
+.btn-pending {
+    background-color: #5d4954;
+    border: none;
+    color: white;
+    /* padding: 15px 32px; */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
 
-/* Screen larger than 600px? 2 column */
-@media (min-width: 600px) {
+/* Screen larger than 900px? 2 column */
+@media (min-width: 900px) {
     .show-all {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
 /* Screen larger than 900px? 3 columns */
-@media (min-width: 900px) {
+/* @media (min-width: 900px) {
     .cardzz {
         grid-template-columns: repeat(3, 1fr);
     }
-}
+} */
 
 .searchppl-container {
     display: grid;
@@ -415,18 +412,31 @@ h1 {
     /* transition: 0.8;
     cursor: pointer; */
 }
-
+.user-search {
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+}
 .column {
     display: flex;
     flex-direction: column;
     margin: 30px;
     margin-left: 100px;
     margin-top: 150px;
-    border: solid 3px goldenrod;
+    /* border: solid 3px goldenrod; */
     align-items: center;
+    text-align: center;
+
     /* flex: 33.33%; */
     /* padding: 5px; */
-    /* border: solid 1px rgb(220, 173, 234); */
+    border: solid 3px rgb(220, 173, 234);
+}
+
+.p-column {
+    text-align: center;
+    align-items: center;
+    text-decoration: none;
 }
 /* .search-input {
     width: 150px;
@@ -455,11 +465,6 @@ h1 {
     font-weight: bold;
     color: white;
 } */
-
-.p-column {
-    text-align: center;
-    text-decoration: none;
-}
 
 .error-message {
     color: red;
@@ -594,7 +599,8 @@ h1 {
 
 .delete-chat button {
     display: inline-block;
-    background-color: #802205;
+    /* background-color: #802205; */
+    background-color: black;
     border: none;
     color: white;
     text-align: center;
@@ -658,15 +664,9 @@ h1 {
     text-align: center;
     font-family: "Bebas Neue", cursive;
 }
-.btn-wannabes,
-.btn-friends {
-    background-color: #5d4954;
-    border: none;
-    color: white;
-    /* padding: 15px 32px; */
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
+.music-play {
+    height: 6vh;
+    width: 6vh;
 }
 
 /* LOADER */
