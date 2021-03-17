@@ -17,7 +17,7 @@ let { hash, compare } = require("./bc");
 const { sendEmail } = require("./ses");
 const cookieSession = require("cookie-session");
 const secret = require("./secrets");
-console.log("I am the secret:", secret);
+
 const multer = require("multer");
 const uidSafe = require("uid-safe");
 // let cookie_sec;
