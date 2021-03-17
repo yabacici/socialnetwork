@@ -339,10 +339,12 @@ h1 {
     color: black;
 }
 
+/* responsive display */
 .show-all {
     max-width: 1200px;
     margin: 0 auto;
-    display: grid;
+    display: flex;
+    justify-content: space-evenly;
     grid-gap: 1rem;
 }
 
@@ -385,7 +387,7 @@ h1 {
     display: inline-block;
 }
 
-/* Screen larger than 900px? 2 column */
+/* Screen larger than 900px? 3 column */
 @media (min-width: 900px) {
     .show-all {
         grid-template-columns: repeat(3, 1fr);

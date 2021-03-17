@@ -2,9 +2,12 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 function Music() {
-    // let audio = new Audio("/cecile-aaliyah.mp3");
-    let [audio] = useState(new Audio("/cecile-aaliyah.mp3"));
-    // const [audio] = useState(new Audio(url));
+    // I used my mp3 as a test
+    // I need to create a db
+    // need to use upload
+    // let audio = new Audio("/cecile.mp3");
+    // let [audio] = useState(new Audio("/cecile.mp3"));
+    const [audio] = useState(new Audio(url));
     const [playing, setPlaying] = useState(false);
     const toggle = () => setPlaying(!playing);
     useEffect(() => {

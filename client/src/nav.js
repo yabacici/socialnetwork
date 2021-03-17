@@ -8,7 +8,7 @@ export default function Nav(props) {
         <nav>
             <Logo />
             <div className="logo">
-                <h4>Acoustic Masterpiece</h4>
+                <h4>Acoustic Lounge</h4>
             </div>
             <ul className="nav-links">
                 <li>
