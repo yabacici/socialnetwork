@@ -10,7 +10,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import FindPeople from "./findPeople";
 import Nav from "./nav";
 import Chat from "./chat";
-import Music from "./music";
+// import Music from "./music";
 // import { Link } from "react-router-dom";
 
 export default class App extends Component {

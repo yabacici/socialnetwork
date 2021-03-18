@@ -32,7 +32,7 @@ export default function Profile(props) {
                 </span>
             </h2>
 
-            <Music />
+            {/* <Music /> */}
 
             <BioEditor
                 firstName={props.firstName}
