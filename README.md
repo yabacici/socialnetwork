@@ -6,7 +6,7 @@ This is a WORK IN PROGRESS project.
 
 ## Overview
 
-The Social Network is a fullstack project on which users can sign up, say a little about themselves, become friends with other users, and chat with them . This is a single-page application made with React.
+The Social Network is a fullstack project on which users can sign up, say a little about themselves, become friends with other users, and chat with them. This is a single-page application made with React.
 
 I created a MUSIC SOCIAL NETWORK where users can look for other music lovers to create a band, make music together or simply share their passion.
 
@@ -17,8 +17,8 @@ I created a MUSIC SOCIAL NETWORK where users can look for other music lovers to 
 -   JavaScript
 -   Node.js
 -   React.js
--   Socket.io
 -   Redux
+-   Socket.io
 -   Webpack
 -   PostgreSQL
 
