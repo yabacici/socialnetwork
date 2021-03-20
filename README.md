@@ -1,22 +1,28 @@
-# Social Network Project
+# Music Social Network Project
 
 The Social Network website was a project assigned during a 3-month bootcamp at SPICED Academy.
 
-This is a WORK IN PROGRESS project.
+This project is a **work in progress**.
 
 ## Overview
 
-The Social Network is a fullstack project on which users can sign up, say a little about themselves, become friends with other users, and chat with them. This is a single-page application made with React.
+This Social Network is a fullstack single-page React app.
 
-I created a MUSIC SOCIAL NETWORK where users can look for other music lovers to create a band, make music together or simply share their passion.
+### My extension of the idea
+
+I adapted the app for musicians, so users can look for other music lovers to create a band, make music together or simply share their passion.
+
+### What can a user do?
+
+ - Sign up
+ - Say a little about themselves,
+ - Become friends with other users,
+ - Chat with them. 
 
 ## Built with
 
--   HTML
 -   CSS
--   JavaScript
--   Node.js
--   React.js
+-   React
 -   Redux
 -   Socket.io
 -   Webpack
@@ -24,14 +30,12 @@ I created a MUSIC SOCIAL NETWORK where users can look for other music lovers to 
 
 ## Getting Started
 
-### Prerequisites
+```Console
+npm install
+```
 
-A repo for this project has already been created by SPICED Academy instructors.
+## Screenshots
 
--   npm
-    > npm install
-
-## Usage
 ![image](https://user-images.githubusercontent.com/71400566/111637744-05929b80-87fa-11eb-9238-b0eb496bbbbd.png)
 
 ![image](https://user-images.githubusercontent.com/71400566/111638288-789c1200-87fa-11eb-86e3-9cadc9f12d5f.png)
