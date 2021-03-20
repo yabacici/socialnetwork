@@ -15,9 +15,9 @@ I adapted the app for musicians, so users can look for other music lovers to cre
 ### What can a user do?
 
  - Sign up
- - Say a little about themselves,
- - Become friends with other users,
- - Chat with them. 
+ - Say a little about themselves
+ - Become friends with other users
+ - Chat with them 
 
 ## Built with
 
